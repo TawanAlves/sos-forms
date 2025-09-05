@@ -1,0 +1,18 @@
+# Bun configuration file
+[install]
+# Use exact versions for better reproducibility
+exact = true
+# Auto-install peer dependencies
+auto = true
+
+[install.cache]
+# Use better cache management
+dir = ".bun/cache"
+
+[run]
+# Use Bun's runtime for better performance
+bun = true
+
+[test]
+# Use Bun's test runner
+root = "./src"

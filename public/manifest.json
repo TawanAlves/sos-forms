@@ -1,0 +1,17 @@
+{
+  "name": "SOS Palmilhas - Formulário",
+  "short_name": "SOS Palmilhas",
+  "description": "Sistema de pedidos para palmilhas personalizadas",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#092246",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

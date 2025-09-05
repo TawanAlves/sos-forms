@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "naumovs.color-highlight",
+        "bradlc.vscode-tailwindcss",
+        "voorjaar.windicss-intellisense",
+        "christian-kohler.path-intellisense",
+        "mikestead.dotenv"
+    ]
+}

@@ -1,0 +1,41 @@
+{
+  "name": "sos-forms",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SOS Palmilhas - Forms",
+  "author": {
+    "name": "Codei Technology"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "clean": "pnpm run lint && pnpm run build",
+    "test:env": "tsx scripts/test-env.ts",
+    "test:email": "tsx scripts/test-email.ts"
+  },
+  "dependencies": {
+    "@types/nodemailer": "^7.0.0",
+    "@types/react-input-mask": "^3.0.6",
+    "next": "15.4.6",
+    "nodemailer": "^7.0.5",
+    "pagarme": "^4.35.2",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-input-mask": "^2.0.4",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.6",
+    "tailwindcss": "^4",
+    "tsx": "^4.7.0",
+    "typescript": "^5"
+  }
+}
