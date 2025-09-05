@@ -283,7 +283,7 @@ export function PaymentStep({
                 value={localData.cardNumber}
                 onChange={(e) => handleCardNumberChange(e.target.value)}
                 placeholder="0000 0000 0000 0000"
-                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
                   errors.cardNumber ? "border-red-500" : "border-gray-300"
                 }`}
               />
@@ -308,7 +308,7 @@ export function PaymentStep({
                   handleChange("cardHolderName", e.target.value.toUpperCase())
                 }
                 placeholder="NOME COMO NO CARTÃO"
-                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
                   errors.cardHolderName ? "border-red-500" : "border-gray-300"
                 }`}
               />
@@ -334,7 +334,7 @@ export function PaymentStep({
                   onChange={(e) =>
                     handleChange("cardExpiryMonth", e.target.value)
                   }
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
                     errors.cardExpiryMonth
                       ? "border-red-500"
                       : "border-gray-300"
@@ -367,7 +367,7 @@ export function PaymentStep({
                   onChange={(e) =>
                     handleChange("cardExpiryYear", e.target.value)
                   }
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
                     errors.cardExpiryYear ? "border-red-500" : "border-gray-300"
                   }`}
                 >
@@ -406,7 +406,7 @@ export function PaymentStep({
                     )
                   }
                   placeholder="000"
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
                     errors.cardCvv ? "border-red-500" : "border-gray-300"
                   }`}
                 />
@@ -431,7 +431,7 @@ export function PaymentStep({
                   onChange={(e) =>
                     handleChange("installments", parseInt(e.target.value))
                   }
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
                     errors.installments ? "border-red-500" : "border-gray-300"
                   }`}
                 >
