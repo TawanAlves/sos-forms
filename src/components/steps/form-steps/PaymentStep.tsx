@@ -479,10 +479,10 @@ export function PaymentStep({
         )}
 
         {/* Botões de Navegação */}
-        <div className="flex justify-between items-center pt-6">
+        <div className="flex justify-between items-center pt-6 flex-wrap gap-3">
           <Button isBack={true} onClick={onPrev} disabled={isProcessing} />
 
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 gap-3 flex-wrap">
             {/* Botão Salvar Especificações */}
             <button
               onClick={onSaveChanges}

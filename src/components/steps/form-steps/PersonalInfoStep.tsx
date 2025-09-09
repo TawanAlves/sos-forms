@@ -120,8 +120,6 @@ export function PersonalInfoStep({
       title="Dados do cliente"
       subtitle="Preencha com os seus dados corretamente"
       showUnsavedChangesNotification={hasUnsavedChanges}
-      onSaveChanges={onSaveChanges}
-      isSaving={isSaving}
     >
       <div className="space-y-6">
         {/* E-mail */}

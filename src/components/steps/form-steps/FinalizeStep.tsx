@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { FinalizeData, FormData } from '@/types/form';
-import { StepWrapper } from '../common/StepWrapper';
-import { useState } from 'react';
-import { useEmail } from '@/hooks/useEmail';
+import { FinalizeData, FormData } from "@/types/form";
+import { StepWrapper } from "../common/StepWrapper";
+import { useState } from "react";
+import { useEmail } from "@/hooks/useEmail";
 
 interface FinalizeStepProps {
   data: FinalizeData;
@@ -16,11 +16,17 @@ export function FinalizeStep({
   data,
   formData,
   onDataChange,
-  onPrev
+  onPrev,
 }: FinalizeStepProps) {
   const [localData, setLocalData] = useState<FinalizeData>(data);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { sendEmail, isLoading: isEmailLoading, error: emailError, success: emailSuccess, reset: resetEmail } = useEmail();
+  const {
+    sendEmail,
+    isLoading: isEmailLoading,
+    error: emailError,
+    success: emailSuccess,
+    reset: resetEmail,
+  } = useEmail();
 
   const handleChange = (field: keyof FinalizeData, value: boolean | string) => {
     const newData = { ...localData, [field]: value };
@@ -34,7 +40,7 @@ export function FinalizeStep({
 
     try {
       // Simula processamento do pedido
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Gera número do pedido
       const orderNumber = `SOS-${Date.now().toString().slice(-6)}`;
@@ -43,35 +49,34 @@ export function FinalizeStep({
       const newData = {
         ...localData,
         orderNumber: orderNumber,
-        orderConfirmed: true
+        orderConfirmed: true,
       };
       setLocalData(newData);
       onDataChange(newData);
 
       // Envia e-mail para o administrador
       const emailResult = await sendEmail(formData);
-      
+
       if (!emailResult.success) {
-        console.error('Erro ao enviar e-mail:', emailResult.error);
+        console.error("Erro ao enviar e-mail:", emailResult.error);
       }
 
       // Aqui você pode adicionar a lógica para enviar os dados para o backend
       // console.log('Dados do pedido:', formData);
       // console.log('Número do pedido:', orderNumber);
-
     } catch (error) {
-      console.error('Erro ao finalizar pedido:', error);
+      console.error("Erro ao finalizar pedido:", error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const formatFileSize = (bytes: number) => {
-    if (bytes === 0) return '0 Bytes';
+    if (bytes === 0) return "0 Bytes";
     const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const sizes = ["Bytes", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
   if (localData.orderConfirmed && localData.orderNumber) {
@@ -89,7 +94,8 @@ export function FinalizeStep({
               Pedido Confirmado!
             </h2>
             <p className="text-lg text-green-700 mb-4">
-              Número do pedido: <span className="font-bold">{localData.orderNumber}</span>
+              Número do pedido:{" "}
+              <span className="font-bold">{localData.orderNumber}</span>
             </p>
             <p className="text-sm text-green-600">
               Você receberá uma confirmação por email e WhatsApp em breve.
@@ -97,68 +103,95 @@ export function FinalizeStep({
           </div>
 
           {/* Status dos E-mails */}
-          <div className={`border rounded-lg p-6 ${
-            emailSuccess ? 'bg-green-50 border-green-200 text-green-700' : 
-            emailError ? 'bg-red-50 border-red-200 text-red-700' : 
-            isEmailLoading ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-gray-50 border-gray-200 text-gray-700'
-          }`}>
+          <div
+            className={`border rounded-lg p-6 ${
+              emailSuccess
+                ? "bg-green-50 border-green-200 text-green-700"
+                : emailError
+                ? "bg-red-50 border-red-200 text-red-700"
+                : isEmailLoading
+                ? "bg-blue-50 border-blue-200 text-blue-700"
+                : "bg-gray-50 border-gray-200 text-gray-700"
+            }`}
+          >
             <h3 className="text-lg font-bold mb-4">
-              {emailSuccess ? '📧 E-mails Enviados com Sucesso!' :
-               emailError ? '❌ Erro no Envio dos E-mails' :
-               isEmailLoading ? '📧 Enviando E-mails...' : '📧 Status dos E-mails'}
+              {emailSuccess
+                ? "📧 E-mails Enviados com Sucesso!"
+                : emailError
+                ? "❌ Erro no Envio dos E-mails"
+                : isEmailLoading
+                ? "📧 Enviando E-mails..."
+                : "📧 Status dos E-mails"}
             </h3>
-            
+
             {isEmailLoading && (
               <div className="flex items-center space-x-3 text-blue-700">
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
                 <span>Enviando e-mails de confirmação...</span>
               </div>
             )}
-            
+
             {emailSuccess && (
               <div className="text-green-700 space-y-3">
                 <div className="flex items-center space-x-2">
                   <span>✅</span>
-                  <span>E-mail enviado para o administrador (admin@admin.com)</span>
+                  <span>
+                    E-mail enviado para o administrador (admin@admin.com)
+                  </span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <span>✅</span>
-                  <span>E-mail de confirmação enviado para você ({formData.clientData.email})</span>
+                  <span>
+                    E-mail de confirmação enviado para você (
+                    {formData.clientData.email})
+                  </span>
                 </div>
                 <p className="text-sm mt-3 p-3 bg-green-100 rounded-lg">
-                  <strong>Importante:</strong> Verifique sua caixa de entrada e pasta de spam para receber a confirmação do seu pedido.
+                  <strong>Importante:</strong> Verifique sua caixa de entrada e
+                  pasta de spam para receber a confirmação do seu pedido.
                 </p>
               </div>
             )}
-            
+
             {emailError && (
               <div className="text-red-700">
                 <p>❌ Erro ao enviar e-mails: {emailError}</p>
-                <p className="text-sm mt-2">O pedido foi processado, mas houve um problema no envio das notificações.</p>
+                <p className="text-sm mt-2">
+                  O pedido foi processado, mas houve um problema no envio das
+                  notificações.
+                </p>
               </div>
             )}
           </div>
 
           {/* Resumo Rápido */}
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-            <h3 className="text-lg font-bold text-blue-900 mb-4">Resumo do Pedido</h3>
+            <h3 className="text-lg font-bold text-blue-900 mb-4">
+              Resumo do Pedido
+            </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-800">
               <div>
                 <span className="font-medium">Cliente:</span>
-                <p>{formData.clientData.professionalName || 'Não informado'}</p>
+                <p>{formData.clientData.professionalName || "Não informado"}</p>
               </div>
               <div>
                 <span className="font-medium">Email:</span>
-                <p>{formData.clientData.email || 'Não informado'}</p>
+                <p>{formData.clientData.email || "Não informado"}</p>
               </div>
               <div>
                 <span className="font-medium">Tipo de Palmilha:</span>
                 <p>
-                  {formData.insoleRequest.insoleType === 'sapato-inteira' ? 'Sapato Inteira' :
-                    formData.insoleRequest.insoleType === 'tenis' ? 'Tênis' :
-                      formData.insoleRequest.insoleType === 'sapato-3-4' ? 'Sapato 3/4' :
-                        formData.insoleRequest.insoleType === 'chinelo-sandalia' ? 'Chinelo/Sandália' :
-                          formData.insoleRequest.insoleType === 'chuteira' ? 'Chuteira' : 'Não informado'}
+                  {formData.insoleRequest.insoleType === "sapato-inteira"
+                    ? "Sapato Inteira"
+                    : formData.insoleRequest.insoleType === "tenis"
+                    ? "Tênis"
+                    : formData.insoleRequest.insoleType === "sapato-3-4"
+                    ? "Sapato 3/4"
+                    : formData.insoleRequest.insoleType === "chinelo-sandalia"
+                    ? "Chinelo/Sandália"
+                    : formData.insoleRequest.insoleType === "chuteira"
+                    ? "Chuteira"
+                    : "Não informado"}
                 </p>
               </div>
               <div>
@@ -170,7 +203,9 @@ export function FinalizeStep({
 
           {/* Próximos Passos */}
           <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 text-left">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">📋 Próximos Passos</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-4">
+              📋 Próximos Passos
+            </h3>
             <ul className="space-y-3 text-sm text-gray-700">
               <li className="flex items-start space-x-3">
                 <span className="text-blue-500 font-bold">1.</span>
@@ -178,11 +213,15 @@ export function FinalizeStep({
               </li>
               <li className="flex items-start space-x-3">
                 <span className="text-blue-500 font-bold">2.</span>
-                <span>Entraremos em contato via WhatsApp para confirmar detalhes</span>
+                <span>
+                  Entraremos em contato via WhatsApp para confirmar detalhes
+                </span>
               </li>
               <li className="flex items-start space-x-3">
                 <span className="text-blue-500 font-bold">3.</span>
-                <span>Iniciaremos a produção da sua palmilha personalizada</span>
+                <span>
+                  Iniciaremos a produção da sua palmilha personalizada
+                </span>
               </li>
               <li className="flex items-start space-x-3">
                 <span className="text-blue-500 font-bold">4.</span>
@@ -193,16 +232,22 @@ export function FinalizeStep({
 
           {/* Contato */}
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-            <h3 className="text-lg font-bold text-yellow-900 mb-2">📞 Precisa de Ajuda?</h3>
+            <h3 className="text-lg font-bold text-yellow-900 mb-2">
+              📞 Precisa de Ajuda?
+            </h3>
             <p className="text-sm text-yellow-800 mb-3">
-              Nossa equipe está disponível para esclarecer dúvidas sobre seu pedido.
+              Nossa equipe está disponível para esclarecer dúvidas sobre seu
+              pedido.
             </p>
             <div className="flex justify-center space-x-4">
               <button
                 type="button"
                 className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-sm font-medium"
                 onClick={() => {
-                  window.open(`https://wa.me/5511999999999?text=Olá! Tenho dúvidas sobre o pedido ${localData.orderNumber}`, '_blank');
+                  window.open(
+                    `https://wa.me/5511999999999?text=Olá! Tenho dúvidas sobre o pedido ${localData.orderNumber}`,
+                    "_blank"
+                  );
                 }}
               >
                 💬 WhatsApp
@@ -211,7 +256,7 @@ export function FinalizeStep({
                 type="button"
                 className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-medium"
                 onClick={() => {
-                  window.location.href = `mailto:contato@sosformas.com?subject=Pedido ${localData.orderNumber}`;
+                  window.location.href = `mailto:contato@sospalmilha.com.br?subject=Pedido ${localData.orderNumber}`;
                 }}
               >
                 📧 Email
@@ -243,43 +288,68 @@ export function FinalizeStep({
       <div className="space-y-8">
         {/* Resumo Final */}
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <h3 className="text-lg font-bold text-blue-900 mb-4">📝 Resumo do Seu Pedido</h3>
+          <h3 className="text-lg font-bold text-blue-900 mb-4">
+            📝 Resumo do Seu Pedido
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
             <div className="space-y-3">
               <div>
                 <span className="font-medium text-gray-700">Cliente:</span>
-                <p className="text-gray-900">{formData.clientData.professionalName || 'Não informado'}</p>
+                <p className="text-gray-900">
+                  {formData.clientData.professionalName || "Não informado"}
+                </p>
               </div>
               <div>
                 <span className="font-medium text-gray-700">Email:</span>
-                <p className="text-gray-900">{formData.clientData.email || 'Não informado'}</p>
+                <p className="text-gray-900">
+                  {formData.clientData.email || "Não informado"}
+                </p>
               </div>
               <div>
                 <span className="font-medium text-gray-700">WhatsApp:</span>
-                <p className="text-gray-900">{formData.clientData.whatsapp || 'Não informado'}</p>
+                <p className="text-gray-900">
+                  {formData.clientData.whatsapp || "Não informado"}
+                </p>
               </div>
             </div>
             <div className="space-y-3">
               <div>
-                <span className="font-medium text-gray-700">Tipo de Palmilha:</span>
+                <span className="font-medium text-gray-700">
+                  Tipo de Palmilha:
+                </span>
                 <p className="text-gray-900">
-                  {formData.insoleRequest.insoleType === 'sapato-inteira' ? 'Sapato Inteira' :
-                    formData.insoleRequest.insoleType === 'tenis' ? 'Tênis' :
-                      formData.insoleRequest.insoleType === 'sapato-3-4' ? 'Sapato 3/4' :
-                        formData.insoleRequest.insoleType === 'chinelo-sandalia' ? 'Chinelo/Sandália' :
-                          formData.insoleRequest.insoleType === 'chuteira' ? 'Chuteira' : 'Não informado'}
+                  {formData.insoleRequest.insoleType === "sapato-inteira"
+                    ? "Sapato Inteira"
+                    : formData.insoleRequest.insoleType === "tenis"
+                    ? "Tênis"
+                    : formData.insoleRequest.insoleType === "sapato-3-4"
+                    ? "Sapato 3/4"
+                    : formData.insoleRequest.insoleType === "chinelo-sandalia"
+                    ? "Chinelo/Sandália"
+                    : formData.insoleRequest.insoleType === "chuteira"
+                    ? "Chuteira"
+                    : "Não informado"}
                 </p>
               </div>
               <div>
-                <span className="font-medium text-gray-700">Modelo de Impressão:</span>
+                <span className="font-medium text-gray-700">
+                  Modelo de Impressão:
+                </span>
                 <p className="text-gray-900">
-                  {formData.printingModel.modelType === 'cnc' ? 'Fresadora CNC' :
-                    formData.printingModel.modelType === 'printer3d' ? 'Impressora 3D' : 'Não informado'}
+                  {formData.printingModel.modelType === "cnc"
+                    ? "Fresadora CNC"
+                    : formData.printingModel.modelType === "printer3d"
+                    ? "Impressora 3D"
+                    : "Não informado"}
                 </p>
               </div>
               <div>
-                <span className="font-medium text-gray-700">Arquivos Enviados:</span>
-                <p className="text-gray-900">{formData.files.uploadedFiles.length} arquivo(s)</p>
+                <span className="font-medium text-gray-700">
+                  Arquivos Enviados:
+                </span>
+                <p className="text-gray-900">
+                  {formData.files.uploadedFiles.length} arquivo(s)
+                </p>
               </div>
             </div>
           </div>
@@ -288,18 +358,31 @@ export function FinalizeStep({
         {/* Lista de Arquivos */}
         {formData.files.uploadedFiles.length > 0 && (
           <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">📎 Arquivos Anexados</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-4">
+              📎 Arquivos Anexados
+            </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {formData.files.uploadedFiles.map((file, index) => (
-                <div key={index} className="flex items-center space-x-3 bg-white p-3 rounded border">
+                <div
+                  key={index}
+                  className="flex items-center space-x-3 bg-white p-3 rounded border"
+                >
                   <div className="text-xl">
-                    {file.type.startsWith('image/') ? '🖼️' :
-                      file.type === 'application/pdf' ? '📄' :
-                        file.type.startsWith('video/') ? '🎥' : '📁'}
+                    {file.type.startsWith("image/")
+                      ? "🖼️"
+                      : file.type === "application/pdf"
+                      ? "📄"
+                      : file.type.startsWith("video/")
+                      ? "🎥"
+                      : "📁"}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">{file.name}</p>
-                    <p className="text-xs text-gray-500">{formatFileSize(file.size)}</p>
+                    <p className="text-sm font-medium text-gray-900 truncate">
+                      {file.name}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {formatFileSize(file.size)}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -309,15 +392,21 @@ export function FinalizeStep({
 
         {/* Informações Importantes */}
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-          <h3 className="text-lg font-bold text-yellow-900 mb-4">⚠️ Informações Importantes</h3>
+          <h3 className="text-lg font-bold text-yellow-900 mb-4">
+            ⚠️ Informações Importantes
+          </h3>
           <ul className="space-y-2 text-sm text-yellow-800">
             <li className="flex items-start space-x-2">
               <span className="text-yellow-600">•</span>
-              <span>Após a confirmação, nossa equipe analisará sua prescrição</span>
+              <span>
+                Após a confirmação, nossa equipe analisará sua prescrição
+              </span>
             </li>
             <li className="flex items-start space-x-2">
               <span className="text-yellow-600">•</span>
-              <span>Entraremos em contato via WhatsApp para confirmar detalhes</span>
+              <span>
+                Entraremos em contato via WhatsApp para confirmar detalhes
+              </span>
             </li>
             <li className="flex items-start space-x-2">
               <span className="text-yellow-600">•</span>
@@ -337,15 +426,20 @@ export function FinalizeStep({
               type="checkbox"
               id="final-confirmation"
               checked={localData.orderConfirmed}
-              onChange={(e) => handleChange('orderConfirmed', e.target.checked)}
+              onChange={(e) => handleChange("orderConfirmed", e.target.checked)}
               className="mt-1 h-4 w-4 text-green-600 rounded border-gray-300 focus:ring-green-500"
             />
             <div>
-              <label htmlFor="final-confirmation" className="text-sm font-medium text-gray-900 cursor-pointer">
-                Confirmo que todas as informações estão corretas e autorizo o processamento do pedido <span className="text-red-500">*</span>
+              <label
+                htmlFor="final-confirmation"
+                className="text-sm font-medium text-gray-900 cursor-pointer"
+              >
+                Confirmo que todas as informações estão corretas e autorizo o
+                processamento do pedido <span className="text-red-500">*</span>
               </label>
               <p className="text-xs text-gray-600 mt-1">
-                Ao confirmar, você autoriza nossa equipe a iniciar o processo de produção baseado nas informações fornecidas.
+                Ao confirmar, você autoriza nossa equipe a iniciar o processo de
+                produção baseado nas informações fornecidas.
               </p>
             </div>
           </div>

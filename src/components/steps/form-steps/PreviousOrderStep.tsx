@@ -93,9 +93,6 @@ export function PreviousOrderStep({
     <StepWrapper
       title="Pedido Anterior"
       subtitle="Esta pedido é referente à cópia exata de pedido anterior?"
-      showUnsavedChangesNotification={hasUnsavedChanges}
-      onSaveChanges={onSaveChanges}
-      isSaving={isSaving}
     >
       <div className="space-y-6">
         {/* Opções Sim/Não */}

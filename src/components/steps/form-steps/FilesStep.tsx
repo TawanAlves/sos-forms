@@ -23,6 +23,14 @@ export function FilesStep({
   onSaveChanges,
   isSaving = false
 }: FilesStepProps) {
+  console.log('🎯 [FilesStep] Componente inicializado com dados:', {
+    uploadedFiles: data.uploadedFiles?.length || 0,
+    uploadedFileInfo: data.uploadedFileInfo?.length || 0,
+    wantToReview: data.wantToReview,
+    hasUnsavedChanges,
+    isSaving
+  });
+
   const [localData, setLocalData] = useState<FilesData>(data);
   const [fileErrors, setFileErrors] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
@@ -31,6 +39,7 @@ export function FilesStep({
 
   // Sincronizar o estado local com os dados recebidos
   useEffect(() => {
+    console.log('🔄 [FilesStep] Sincronizando dados recebidos:', data);
     setLocalData(data);
   }, [data]);
 
@@ -41,14 +50,27 @@ export function FilesStep({
   };
 
   const handleFileUpload = async (files: FileList | null) => {
-    if (!files) return;
+    console.log('🚀 [FilesStep] Iniciando handleFileUpload', { filesCount: files?.length || 0 });
+    
+    if (!files) {
+      console.log('❌ [FilesStep] Nenhum arquivo fornecido');
+      return;
+    }
 
     const fileArray = Array.from(files);
     const errors: string[] = [];
     const validFiles: File[] = [];
+    
+    console.log('📁 [FilesStep] Arquivos recebidos:', fileArray.map(f => ({ name: f.name, size: f.size, type: f.type })));
 
     // Validação inicial dos arquivos
-    fileArray.forEach(file => {
+    fileArray.forEach((file, index) => {
+      console.log(`🔍 [FilesStep] Validando arquivo ${index + 1}/${fileArray.length}:`, {
+        name: file.name,
+        size: file.size,
+        type: file.type
+      });
+      
       // Verifica se o arquivo é menor que 100MB
       const isValidSize = file.size <= 100 * 1024 * 1024;
       
@@ -61,44 +83,78 @@ export function FilesStep({
       ];
       const isValidType = allowedTypes.includes(file.type) || file.name.endsWith('.stl');
       
+      console.log(`✅ [FilesStep] Validação do arquivo ${file.name}:`, {
+        isValidSize,
+        isValidType,
+        sizeInMB: (file.size / (1024 * 1024)).toFixed(2)
+      });
+      
       if (!isValidSize) {
         errors.push(`${file.name}: Arquivo muito grande (máximo 100MB)`);
+        console.log(`❌ [FilesStep] Arquivo ${file.name} rejeitado: muito grande`);
       } else if (!isValidType) {
         errors.push(`${file.name}: Tipo de arquivo não suportado`);
+        console.log(`❌ [FilesStep] Arquivo ${file.name} rejeitado: tipo não suportado`);
       } else {
         validFiles.push(file);
+        console.log(`✅ [FilesStep] Arquivo ${file.name} aceito`);
       }
     });
 
     // Atualiza erros
     setFileErrors(errors);
+    console.log('📊 [FilesStep] Resumo da validação:', {
+      totalFiles: fileArray.length,
+      validFiles: validFiles.length,
+      errors: errors.length,
+      errorMessages: errors
+    });
 
     // Se há arquivos válidos, faz o upload
     if (validFiles.length > 0) {
+      console.log('🚀 [FilesStep] Iniciando upload de arquivos válidos:', validFiles.map(f => f.name));
       setIsUploading(true);
       setUploadProgress(0);
 
       try {
         const formData = new FormData();
-        validFiles.forEach(file => {
+        validFiles.forEach((file, index) => {
+          console.log(`📤 [FilesStep] Adicionando arquivo ${index + 1} ao FormData:`, file.name);
           formData.append('files', file);
         });
 
+        console.log('🌐 [FilesStep] Enviando requisição para /api/upload');
         const response = await fetch('/api/upload', {
           method: 'POST',
           body: formData,
         });
 
+        console.log('📡 [FilesStep] Resposta recebida:', {
+          status: response.status,
+          statusText: response.statusText,
+          ok: response.ok,
+          headers: Object.fromEntries(response.headers.entries())
+        });
+
         if (!response.ok) {
           const errorData = await response.json();
+          console.error('❌ [FilesStep] Erro na resposta da API:', errorData);
           throw new Error(errorData.error || 'Erro no upload');
         }
 
         const result = await response.json();
+        console.log('✅ [FilesStep] Upload bem-sucedido:', result);
         
         // Atualiza os dados com as informações dos arquivos enviados
         const newUploadedFiles = [...localData.uploadedFiles, ...validFiles].slice(0, 10);
         const newUploadedFileInfo = [...localData.uploadedFileInfo, ...result.files].slice(0, 10);
+        
+        console.log('🔄 [FilesStep] Atualizando estado local:', {
+          currentFiles: localData.uploadedFiles.length,
+          newFiles: validFiles.length,
+          totalFiles: newUploadedFiles.length,
+          fileInfo: result.files
+        });
         
         // Atualiza o estado local primeiro
         const updatedData = {
@@ -112,16 +168,20 @@ export function FilesStep({
         onDataChange(updatedData);
         
         setUploadProgress(100);
+        console.log('✅ [FilesStep] Upload concluído com sucesso');
         
         // Limpa erros se o upload foi bem-sucedido
         if (errors.length === 0) {
           setFileErrors([]);
+          console.log('🧹 [FilesStep] Erros limpos');
         }
 
       } catch (error) {
-        console.error('Erro no upload:', error);
+        console.error('❌ [FilesStep] Erro no upload:', error);
+        console.error('❌ [FilesStep] Stack trace:', error instanceof Error ? error.stack : 'N/A');
         setFileErrors([...errors, `Erro no upload: ${error instanceof Error ? error.message : 'Erro desconhecido'}`]);
       } finally {
+        console.log('🏁 [FilesStep] Finalizando processo de upload');
         setIsUploading(false);
         setUploadProgress(0);
       }
@@ -129,26 +189,49 @@ export function FilesStep({
   };
 
   const removeFile = async (index: number) => {
+    console.log('🗑️ [FilesStep] Iniciando remoção de arquivo:', { index, fileInfo: localData.uploadedFileInfo[index] });
+    
     const fileToRemove = localData.uploadedFileInfo[index];
     
     // Remove do servidor se o arquivo foi enviado
     if (fileToRemove?.fileName) {
+      console.log('🌐 [FilesStep] Removendo arquivo do servidor:', fileToRemove.fileName);
       try {
-        await fetch('/api/upload', {
+        const response = await fetch('/api/upload', {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ fileName: fileToRemove.fileName }),
         });
+        
+        console.log('📡 [FilesStep] Resposta da remoção:', {
+          status: response.status,
+          ok: response.ok
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Erro ${response.status}: ${response.statusText}`);
+        }
+        
+        console.log('✅ [FilesStep] Arquivo removido do servidor com sucesso');
       } catch (error) {
-        console.error('Erro ao remover arquivo do servidor:', error);
+        console.error('❌ [FilesStep] Erro ao remover arquivo do servidor:', error);
       }
+    } else {
+      console.log('ℹ️ [FilesStep] Arquivo não foi enviado para o servidor, removendo apenas localmente');
     }
 
     // Remove dos arrays locais
     const updatedFiles = localData.uploadedFiles.filter((_: File, i: number) => i !== index);
     const updatedFileInfo = localData.uploadedFileInfo.filter((_: UploadedFile, i: number) => i !== index);
+    
+    console.log('🔄 [FilesStep] Atualizando estado após remoção:', {
+      beforeFiles: localData.uploadedFiles.length,
+      afterFiles: updatedFiles.length,
+      beforeInfo: localData.uploadedFileInfo.length,
+      afterInfo: updatedFileInfo.length
+    });
     
     // Atualiza o estado local primeiro
     const updatedData = {
@@ -160,6 +243,8 @@ export function FilesStep({
     
     // Depois notifica o componente pai
     onDataChange(updatedData);
+    
+    console.log('✅ [FilesStep] Arquivo removido com sucesso');
   };
 
   const formatFileSize = (bytes: number) => {
@@ -246,18 +331,26 @@ export function FilesStep({
             onClick={() => !isUploading && fileInputRef.current?.click()}
             onDragOver={(e: React.DragEvent) => {
               if (!isUploading) {
+                console.log('🎯 [FilesStep] Drag over detectado');
                 e.preventDefault();
                 e.currentTarget.classList.add('border-blue-400', 'bg-blue-50');
               }
             }}
             onDragLeave={(e: React.DragEvent) => {
+              console.log('🎯 [FilesStep] Drag leave detectado');
               e.currentTarget.classList.remove('border-blue-400', 'bg-blue-50');
             }}
             onDrop={(e: React.DragEvent) => {
               if (!isUploading) {
+                console.log('🎯 [FilesStep] Drop detectado:', {
+                  filesCount: e.dataTransfer.files.length,
+                  files: Array.from(e.dataTransfer.files).map(f => ({ name: f.name, size: f.size, type: f.type }))
+                });
                 e.preventDefault();
                 e.currentTarget.classList.remove('border-blue-400', 'bg-blue-50');
                 handleFileUpload(e.dataTransfer.files);
+              } else {
+                console.log('⚠️ [FilesStep] Drop ignorado - upload em andamento');
               }
             }}
           >
@@ -296,7 +389,13 @@ export function FilesStep({
             type="file"
             multiple
             accept=".jpg,.jpeg,.png,.gif,.bmp,.pdf,.mp4,.avi,.mov,.wmv,.stl"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFileUpload(e.target.files)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              console.log('📁 [FilesStep] Input de arquivo alterado:', {
+                filesCount: e.target.files?.length || 0,
+                files: e.target.files ? Array.from(e.target.files).map(f => ({ name: f.name, size: f.size, type: f.type })) : []
+              });
+              handleFileUpload(e.target.files);
+            }}
             className="hidden"
           />
 

@@ -169,9 +169,13 @@ class EmailService {
   /**
    * Função auxiliar para acessar propriedades de forma segura
    */
-  private safeGet<T>(obj: unknown, path: string, defaultValue: T = 'Não informado' as T): T {
+  private safeGet<T>(
+    obj: unknown,
+    path: string,
+    defaultValue: T = "Não informado" as T
+  ): T {
     try {
-      const keys = path.split('.');
+      const keys = path.split(".");
       let result: unknown = obj;
       for (const key of keys) {
         if (result === null || result === undefined) {
@@ -179,7 +183,9 @@ class EmailService {
         }
         result = (result as Record<string, unknown>)[key];
       }
-      return result !== null && result !== undefined ? result as T : defaultValue;
+      return result !== null && result !== undefined
+        ? (result as T)
+        : defaultValue;
     } catch {
       return defaultValue;
     }
@@ -498,14 +504,18 @@ class EmailService {
               <div class="field">
                 <span class="label">Links para Download:</span>
                 <div class="value">
-                  ${uploadedFiles.map((file: Record<string, unknown>) => `
+                  ${uploadedFiles
+                    .map(
+                      (file: Record<string, unknown>) => `
                     <div style="margin-bottom: 8px;">
                       <a href="${
                         process.env.NEXT_PUBLIC_BASE_URL ||
                         "http://localhost:3000"
                       }${file.url}" 
                          style="color: #2563eb; text-decoration: underline; font-weight: 500;">
-                        📎 ${file.originalName} (${formatFileSize(Number(file.size))})
+                        📎 ${file.originalName} (${formatFileSize(
+                        Number(file.size)
+                      )})
                       </a>
                     </div>
                   `
@@ -540,7 +550,7 @@ class EmailService {
           <div class="footer">
             <p>Obrigado por escolher a SOS Palmilhas!</p>
             <p><strong>SOS Palmilhas - Especialistas em palmilhas personalizadas</strong></p>
-            <p>📧 contato@sosformas.com | 📱 (11) 99999-9999</p>
+            <p>📧 contato@sospalmilha.com.br | 📱(11) 97870‑2088</p>
             <p>Data e hora: ${new Date().toLocaleString("pt-BR", {
               timeZone: "America/Sao_Paulo",
             })}</p>
@@ -720,10 +730,14 @@ class EmailService {
       content += "ARQUIVOS:\n";
       content += `Arquivos Enviados: ${uploadedFiles.length} arquivo(s)\n`;
       content += `Deseja Revisar: ${formatValue(wantToReview)}\n`;
-      content += 'Links para Download:\n';
+      content += "Links para Download:\n";
       uploadedFiles.forEach((file: Record<string, unknown>) => {
-        content += `- ${file.originalName} (${formatFileSize(Number(file.size))})\n`;
-        content += `  URL: ${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}${file.url}\n`;
+        content += `- ${file.originalName} (${formatFileSize(
+          Number(file.size)
+        )})\n`;
+        content += `  URL: ${
+          process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+        }${file.url}\n`;
       });
       content += "\n";
     }
@@ -739,9 +753,9 @@ class EmailService {
    * Gera o conteúdo HTML do e-mail para o usuário
    */
   private generateUserEmailContent(formData: FormData): string {
-    const clientName = this.safeGet(formData, 'clientData.professionalName');
+    const clientName = this.safeGet(formData, "clientData.professionalName");
     // const clientEmail = this.safeGet(formData, 'clientData.email');
-    const orderNumber = this.safeGet(formData, 'finalize.orderNumber');
+    const orderNumber = this.safeGet(formData, "finalize.orderNumber");
 
     return `
       <!DOCTYPE html>
@@ -785,7 +799,7 @@ class EmailService {
           <div class="footer">
             <p>Obrigado por escolher a SOS Palmilhas!</p>
             <p><strong>SOS Palmilhas - Especialistas em palmilhas personalizadas</strong></p>
-            <p>📧 contato@sosformas.com | 📱 (11) 99999-9999</p>
+            <p>📧 contato@sospalmilha.com.br | 📱 (11) 97870‑2088</p>
             <p>Data e hora: ${new Date().toLocaleString("pt-BR", {
               timeZone: "America/Sao_Paulo",
             })}</p>
