@@ -74,6 +74,7 @@ export function MultiStepForm() {
     nextStep,
     prevStep,
     hasUnsavedChanges,
+    hasUnsavedChangesWithExceptions,
     saveFormData,
     discardChanges,
   } = useFormState();
@@ -93,7 +94,7 @@ export function MultiStepForm() {
 
   // Hook para prevenir perda de dados
   usePreventDataLoss({
-    hasUnsavedChanges: hasUnsavedChanges(),
+    hasUnsavedChanges: hasUnsavedChangesWithExceptions(currentStep),
     onBeforeUnload: () => setShowConfirmationModal(true),
   });
 
@@ -155,7 +156,7 @@ export function MultiStepForm() {
     action: () => void,
     description: string
   ) => {
-    if (hasUnsavedChanges()) {
+    if (hasUnsavedChangesWithExceptions(currentStep)) {
       setPendingNavigation({ action, description });
       setShowConfirmationModal(true);
     } else {
@@ -201,17 +202,13 @@ export function MultiStepForm() {
 
   // Função especial para o PreviousOrderStep que verifica se deve ir para passo final
   const handlePreviousOrderNavigation = () => {
-    const action = () => {
-      // Se o usuário escolheu "Sim", vai direto para o passo final (finalize)
-      if (formData.previousOrder.isPreviousOrder === "yes") {
-        goToStep("finalize");
-      } else {
-        // Caso contrário, continua normalmente
-        nextStep();
-      }
-    };
-
-    navigateWithConfirmation(action, "avançar para a próxima etapa");
+    // Se o usuário escolheu "Sim", vai direto para o passo final (finalize)
+    if (formData.previousOrder.isPreviousOrder === "yes") {
+      goToStep("finalize");
+    } else {
+      // Caso contrário, continua normalmente
+      nextStep();
+    }
   };
 
   // Função especial para o SapatoInteiraStep que verifica se deve ir para passo 6
@@ -305,9 +302,6 @@ export function MultiStepForm() {
             }
             onNext={handlePreviousOrderNavigation}
             onPrev={prevStep}
-            hasUnsavedChanges={hasUnsavedChanges()}
-            onSaveChanges={handleSaveFormData}
-            isSaving={isSaving}
           />
         );
       case "navicular-measurement":
