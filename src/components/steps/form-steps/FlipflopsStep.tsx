@@ -113,18 +113,36 @@ export function FlipflopsStep({
       newErrors.measurements = "Informe as medidas do chinelo";
     } else {
       // [ALTERAÇÃO] Validação detalhada das medidas do chinelo (apenas comprimento e largura)
+      // const parts = data.measurements.split("x");
+      // if (parts.length !== 2) {
+      //   newErrors.measurements = "Formato inválido. Use: comprimento x largura";
+      // } else {
+      //   const [length, width] = parts;
+      //   if (!length || length.length === 0 || length.length > 3) {
+      //     newErrors.measurements = "Comprimento deve ter até 3 dígitos";
+      //   } else if (!width || width.length === 0 || width.length > 3) {
+      //     newErrors.measurements = "Largura deve ter até 3 dígitos";
+      //   } else if (data.measurements.trim().length < 3) {
+      //     newErrors.measurements = "Medida deve ser mais detalhada (ex: 300x100)";
+      //   }
+      // }
       const parts = data.measurements.split("x");
-      if (parts.length !== 2) {
-        newErrors.measurements = "Formato inválido. Use: comprimento x largura";
-      } else {
-        const [length, width] = parts;
-        if (!length || length.length === 0 || length.length > 3) {
+      const [length, width] = parts.length === 2 ? parts : ["", ""];
+      if (parts.length !== 2 || data.measurements.trim() === 'x') {
+        newErrors.measurements = "Formato inválido. Use: comprimento x largura"; 
+      }
+     
+      else if (!length || length.length === 0) {
+          newErrors.measurements = "Comprimento é obrigatório (até 3 dígitos)";
+      } else if (length.length > 3) {
           newErrors.measurements = "Comprimento deve ter até 3 dígitos";
-        } else if (!width || width.length === 0 || width.length > 3) {
+      } else if (!width || width.length === 0) {
+          newErrors.measurements = "Largura é obrigatória (até 3 dígitos)";
+      } else if (width.length > 3) {
           newErrors.measurements = "Largura deve ter até 3 dígitos";
-        } else if (data.measurements.trim().length < 3) {
-          newErrors.measurements = "Medida deve ser mais detalhada (ex: 300x100)";
-        }
+      } 
+      else if (data.measurements.trim().length < 3) {
+         newErrors.measurements = "Medida deve ser mais detalhada (ex: 300x100)";
       }
     }
 
@@ -157,16 +175,16 @@ export function FlipflopsStep({
     "27 / 28",
     "29 / 30",
     "31 / 32",
-    "33 / 34",
-    "35 / 36",
-    "37 / 38",
-    "39 / 40",
-    "41 / 42",
-    "43 / 44",
-    "45 / 46",
-    "47 / 46",
-    "47 / 48",
-    "49 / 50",
+    "33 / 34 225x90",
+    "35 / 36 240x95",
+    "37 / 38 257x97",
+    "39 / 40 265x100",
+    "41 / 42 280x104",
+    "43 / 44 29x109",
+    "45 / 46 305x105",
+    // "47 / 46",
+    // "47 / 48",
+    // "49 / 50",
   ];
 
   return (
