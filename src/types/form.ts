@@ -169,7 +169,7 @@ export interface ReviewData {
 }
 
 export interface PaymentData {
-  paymentMethod: "credit_card" | "debit_card" | "boleto" | "pix" | "";
+  paymentMethod: "credit_card" | "debit_card" | "pix" | "";
   cardNumber: string;
   cardHolderName: string;
   cardExpiryMonth: string;
@@ -179,6 +179,8 @@ export interface PaymentData {
   isPaid: boolean;
   transactionId?: string;
   paymentStatus?: "pending" | "paid" | "failed" | "cancelled";
+  pixCode?: string;
+  pixQrCode?: string;
 }
 
 export interface FinalizeData {

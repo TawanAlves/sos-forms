@@ -354,6 +354,18 @@ export function useFormState() {
     return hasUnsavedChangesRef.current;
   }, []);
 
+  // Função para verificar se há mudanças não salvas (ignorando etapas específicas)
+  const hasUnsavedChangesWithExceptions = useCallback((currentStep: FormStep): boolean => {
+    // Etapas que não precisam de confirmação de salvamento
+    const stepsWithoutSaveConfirmation: FormStep[] = ["previous-order"];
+    
+    if (stepsWithoutSaveConfirmation.includes(currentStep)) {
+      return false;
+    }
+    
+    return hasUnsavedChangesRef.current;
+  }, []);
+
   // Função para salvar dados manualmente
   const saveFormData = useCallback(() => {
     FormCache.set("form_data", formData, 48);
@@ -387,6 +399,7 @@ export function useFormState() {
     resetForm,
     // Novas funções para gerenciamento de mudanças
     hasUnsavedChanges,
+    hasUnsavedChangesWithExceptions,
     saveFormData,
     discardChanges,
   };

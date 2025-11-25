@@ -148,9 +148,11 @@ export function PaymentStep({
       if (result.success) {
         const updatedData = {
           ...localData,
-          isPaid: true,
-          paymentStatus: "paid" as const,
+          isPaid: result.transaction.status === 'PAID',
+          paymentStatus: result.transaction.status.toLowerCase() as "paid" | "pending" | "failed" | "cancelled",
           transactionId: result.transaction.id,
+          pixCode: result.pixData?.qrCode,
+          pixQrCode: result.pixData?.qrCodeText,
         };
 
         setLocalData(updatedData);
@@ -178,8 +180,7 @@ export function PaymentStep({
   const paymentMethods = [
     { value: "credit_card", label: "Cartão de Crédito", icon: "💳" },
     { value: "debit_card", label: "Cartão de Débito", icon: "💳" },
-    { value: "boleto", label: "Boleto Bancário", icon: "📄" },
-    { value: "pix", label: "PIX", icon: "❖" },
+    { value: "pix", label: "PIX", icon: "⚡" },
   ];
 
   return (
@@ -435,7 +436,7 @@ export function PaymentStep({
                     errors.installments ? "border-red-500" : "border-gray-300"
                   }`}
                 >
-                  {Array.from({ length: 12 }, (_, i) => {
+                  {Array.from({ length: 3 }, (_, i) => {
                     const installments = i + 1;
                     const value = 165 / installments;
                     return (
@@ -456,25 +457,27 @@ export function PaymentStep({
           </div>
         )}
 
-        {/* Informações para Boleto/PIX */}
-        {(localData.paymentMethod === "boleto" ||
-          localData.paymentMethod === "pix") && (
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+        {/* Informações para PIX */}
+        {localData.paymentMethod === "pix" && (
+          <div className="bg-green-50 border border-green-200 rounded-lg p-6">
             <div className="flex items-center space-x-3 mb-4">
-              <span className="text-2xl">
-                {localData.paymentMethod === "boleto" ? "📄" : "⚡"}
-              </span>
-              <h3 className="text-lg font-semibold text-blue-900">
-                {localData.paymentMethod === "boleto"
-                  ? "Boleto Bancário"
-                  : "PIX"}
+              <span className="text-2xl">⚡</span>
+              <h3 className="text-lg font-semibold text-green-900">
+                PIX - Pagamento Instantâneo
               </h3>
             </div>
-            <p className="text-blue-800">
-              {localData.paymentMethod === "boleto"
-                ? "Após confirmar o pedido, você receberá o boleto por e-mail. O prazo para pagamento é de 3 dias úteis."
-                : "Após confirmar o pedido, você receberá o código PIX por e-mail. O pagamento é processado instantaneamente."}
+            <p className="text-green-800 mb-4">
+              Após confirmar o pedido, você receberá o código PIX por e-mail. O pagamento é processado instantaneamente e sua palmilha será enviada em até 15 dias úteis.
             </p>
+            <div className="bg-green-100 border border-green-300 rounded-lg p-4">
+              <h4 className="font-semibold text-green-900 mb-2">Vantagens do PIX:</h4>
+              <ul className="text-green-800 text-sm space-y-1">
+                <li>• Pagamento instantâneo e seguro</li>
+                <li>• Sem taxas adicionais</li>
+                <li>• Disponível 24h por dia</li>
+                <li>• Confirmação imediata do pagamento</li>
+              </ul>
+            </div>
           </div>
         )}
 

@@ -148,16 +148,38 @@ export function StepNavigation({
   // Usar steps.length como fallback para evitar problemas de hidratação
   const safeTotalSteps = isClient ? totalSteps : steps.length;
   const completedCount = completedSteps.filter(Boolean).length;
-  const progressPercentage = Math.round(
-    ((currentStepIndex + 1) / safeTotalSteps) * 100
-  );
+  
+  // Verificações de segurança para evitar NaN ou valores inválidos
+  const safeCurrentStepIndex = Math.max(0, currentStepIndex || 0);
+  const safeTotalStepsCount = Math.max(1, safeTotalSteps || 1);
+  const progressPercentage = Math.min(100, Math.max(0, Math.round(
+    ((safeCurrentStepIndex + 1) / safeTotalStepsCount) * 100
+  )));
+
+  // Evitar renderização durante hidratação para prevenir erros
+  if (!isClient) {
+    return (
+      <div className="w-full bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
+        <div className="flex items-center justify-between mb-4">
+          <div className="text-sm font-medium text-gray-700">
+            Carregando...
+          </div>
+          <div className="flex-1 mx-4">
+            <div className="w-full bg-gray-200 rounded-full h-2.5">
+              <div className="bg-gradient-to-r from-blue-500 to-blue-600 h-2.5 rounded-full w-0" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
       {/* Progress Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="text-sm font-medium text-gray-700">
-          {currentStepIndex + 1} de {safeTotalSteps} etapas ({progressPercentage}%)
+          {safeCurrentStepIndex + 1} de {safeTotalStepsCount} etapas ({progressPercentage}%)
         </div>
         <div className="flex-1 mx-4">
           <div className="w-full bg-gray-200 rounded-full h-2.5">

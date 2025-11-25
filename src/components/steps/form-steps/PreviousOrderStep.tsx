@@ -11,9 +11,6 @@ interface PreviousOrderStepProps
   onDataChange: (data: PreviousOrderData) => void;
   onNext?: () => void;
   onPrev?: () => void;
-  hasUnsavedChanges?: boolean;
-  onSaveChanges?: () => void;
-  isSaving?: boolean;
 }
 
 export function PreviousOrderStep({
@@ -21,9 +18,6 @@ export function PreviousOrderStep({
   onDataChange,
   onNext,
   onPrev,
-  hasUnsavedChanges = false,
-  onSaveChanges,
-  isSaving = false,
 }: PreviousOrderStepProps) {
   const [errors, setErrors] = useState<
     Partial<Record<keyof PreviousOrderData, string>>
@@ -113,7 +107,7 @@ export function PreviousOrderStep({
                 value="yes"
                 checked={data.isPreviousOrder === "yes"}
                 onChange={() => handleOptionSelect("yes")}
-                className="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500 mr-3 text-gray-900"
+                className="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500 mr-3"
               />
               <span className="text-lg font-medium text-gray-900">Sim</span>
             </div>
@@ -135,7 +129,7 @@ export function PreviousOrderStep({
                 value="no"
                 checked={data.isPreviousOrder === "no"}
                 onChange={() => handleOptionSelect("no")}
-                className="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500 mr-3 text-gray-900"
+                className="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500 mr-3"
               />
               <span className="text-lg font-medium text-gray-900">Não</span>
             </div>

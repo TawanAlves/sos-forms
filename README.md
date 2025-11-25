@@ -8,7 +8,7 @@ Sistema avançado de formulário multi-etapas para prescrições médicas de pal
 - **Prescrições Médicas Completas**: Suporte para prescrições individuais com múltiplas especializações
 - **Validação com Zod**: TypeScript-first com validação runtime rigorosa e tipagem total
 - **Navegação Inteligente**: Sistema de navegação condicional baseado nas escolhas do usuário
-- **Integração Pagar.me**: Processamento seguro de pagamentos (preparado para futuras implementações)
+- **Integração PagSeguro**: Processamento seguro de pagamentos com PIX, crédito e débito
 - **Sistema de Arquivos**: Upload e gerenciamento de documentos médicos
 - **Responsivo**: Interface adaptável para todos os dispositivos
 - **TypeScript Completo**: Tipagem total para maior segurança
@@ -20,7 +20,7 @@ Sistema avançado de formulário multi-etapas para prescrições médicas de pal
 - **Frontend**: Next.js 15.4.6, React 19.1.0, TypeScript 5
 - **Estilização**: Tailwind CSS 4
 - **Validação**: Zod 3.25.76 (TypeScript-first schema validation)
-- **Pagamentos**: Pagar.me 4.35.2 (preparado para implementação)
+- **Pagamentos**: PagSeguro API REST (PIX, crédito e débito)
 - **Runtime**: Node.js (recomendado v18+ ou v20+)
 - **Gerenciamento de Estado**: Hooks personalizados com TypeScript
 - **Assets**: Sistema organizado de imagens e recursos
@@ -156,8 +156,10 @@ nano .env.local
 ### 3. **Variáveis Obrigatórias**
 
 ```env
-# Chave de teste do Pagar.me (já configurada)
-PAGARME_API_KEY=ak_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0
+# Configurações do PagSeguro (modo simulação)
+PAGSEGURO_TOKEN=
+PAGSEGURO_ENVIRONMENT=sandbox
+PAGSEGURO_SIMULATION_MODE=true
 
 # URL base da aplicação
 NEXT_PUBLIC_BASE_URL=http://localhost:3000
@@ -220,12 +222,13 @@ curl -X POST http://localhost:3000/api/email \
 
 ## 💳 Sistema de Pagamentos
 
-Integração completa com Pagar.me:
+Integração completa com PagSeguro:
 
+- **PIX**: Pagamento instantâneo e seguro
+- **Cartão de Crédito**: Parcelamento em até 3x sem juros
+- **Cartão de Débito**: Pagamento à vista
 - **Modo de Simulação**: Para desenvolvimento e testes
-- **Múltiplos Métodos**: Cartão de crédito, boleto, PIX
 - **Validação Segura**: Processamento no servidor
-- **Chaves de Teste**: Configuradas para desenvolvimento
 
 ### Teste de Pagamentos
 
@@ -234,6 +237,9 @@ Integração completa com Pagar.me:
 Número: 4111111111111111
 CVV: 123
 Validade: Qualquer data futura
+
+# PIX
+Código gerado automaticamente após confirmação
 ```
 
 ## 🧪 Como Testar o Sistema
@@ -398,6 +404,7 @@ Consulte a pasta `Docs/` para documentação detalhada:
 - **[STEPS_ARCHITECTURE.md](./Docs/STEPS_ARCHITECTURE.md)** - Arquitetura e padrões das steps
 - **[TODO.md](./Docs/TODO.md)** - Lista de tarefas, melhorias e roadmap do projeto
 - **[ASSETS.md](./Docs/ASSETS.md)** - Organização e guia de assets e imagens
+- **[PAGSEGURO_SETUP.md](./Docs/PAGSEGURO_SETUP.md)** - Configuração e uso do PagSeguro
 
 ## 🎨 Recursos de UX/UI
 
@@ -495,6 +502,44 @@ vercel --prod
 # Configurar variáveis de ambiente no painel da Vercel
 ```
 
+### 📁 Sistema de Upload com Vercel Blob
+
+O sistema inclui integração completa com **Vercel Blob** para armazenamento de arquivos:
+
+#### **Desenvolvimento**
+- Arquivos salvos localmente em `public/uploads/`
+- URLs relativas: `/uploads/filename.ext`
+
+#### **Produção**
+- Arquivos enviados para Vercel Blob
+- URLs absolutas: `https://blob.vercel-storage.com/...`
+- Acesso público configurado automaticamente
+
+#### **Configuração do Vercel Blob**
+
+1. **Instalar dependência** (já incluída):
+   ```bash
+   pnpm add @vercel/blob
+   ```
+
+2. **Configurar variável de ambiente**:
+   ```env
+   BLOB_READ_WRITE_TOKEN=your_blob_token_here
+   ```
+
+3. **Obter token no Vercel**:
+   - Acesse [Dashboard Vercel](https://vercel.com/dashboard)
+   - Vá para **Storage** → **Blob**
+   - Crie um store ou use existente
+   - Copie o token de leitura/escrita
+
+4. **Deploy**:
+   ```bash
+   vercel --prod
+   ```
+
+📋 **Consulte [VERCEL_BLOB_SETUP.md](./VERCEL_BLOB_SETUP.md) para instruções detalhadas.**
+
 ### Outras Plataformas
 
 - **Railway**: `railway up`
@@ -509,7 +554,9 @@ NEXT_PUBLIC_BASE_URL=https://seudominio.com.br
 NEXT_PUBLIC_DEMO_MODE=false
 NEXT_PUBLIC_DEBUG_MODE=false
 NODE_ENV=production
-PAGARME_API_KEY=ak_live_sua_chave_real
+PAGSEGURO_TOKEN=seu_token_real_aqui
+PAGSEGURO_ENVIRONMENT=production
+PAGSEGURO_SIMULATION_MODE=false
 SMTP_HOST=smtp.empresa.com
 SMTP_USER=noreply@empresa.com
 SMTP_PASS=senha_segura_producao
