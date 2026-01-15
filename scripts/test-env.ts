@@ -49,11 +49,11 @@ try {
   // console.log('\n🔍 Validações:');
 
   // Verifica se está usando chave de teste em produção
-  if (isProduction() && env.PAGARME_API_KEY.startsWith("ak_test_")) {
-    // console.log('⚠️  ATENÇÃO: Usando chave de teste em produção!');
-  } else {
-    // console.log('✅ Chave do Pagar.me apropriada para o ambiente');
-  }
+  // if (isProduction() && env.PAGARME_API_KEY.startsWith("ak_test_")) {
+  //   // console.log('⚠️  ATENÇÃO: Usando chave de teste em produção!');
+  // } else {
+  //   // console.log('✅ Chave do Pagar.me apropriada para o ambiente');
+  // }
 
   // Verifica se o modo demo está adequado
   if (isProduction() && isDemoMode()) {
