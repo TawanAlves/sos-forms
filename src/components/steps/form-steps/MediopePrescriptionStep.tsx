@@ -4,19 +4,22 @@ import { MediopePrescriptionData } from '@/types/form';
 import { StepWrapper } from '../common/StepWrapper';
 import { useState } from 'react';
 import Image from 'next/image';
+import { Button } from "../common/ButtonComp";
 
 interface MediopePrescriptionStepProps {
   data: MediopePrescriptionData;
   onDataChange: (data: MediopePrescriptionData) => void;
   onNext?: () => void;
   onPrev?: () => void;
+   onReturn?: () => void;
 }
 
 export function MediopePrescriptionStep({
   data,
   onDataChange,
   onNext,
-  onPrev
+  onPrev,
+  onReturn,
 }: MediopePrescriptionStepProps) {
   const [localData, setLocalData] = useState<MediopePrescriptionData>(data);
 
@@ -64,8 +67,8 @@ export function MediopePrescriptionStep({
     { value: 'bacrd-barra-antero-calcanea-reta-d', label: 'BACrD - Barra Antero Calcânea Reta Direita', image: '/assets/images/BACrD-BarraAnteroCalcâneaRetaDireita.png' },
     { value: 'baccd-barra-antero-calcanea-curva', label: 'BACcD - Barra Antero Calcânea Curva', image: '/assets/images/BACcD-BarraAnteroCalcâneaCurva.png' },
     { value: 'abdutor-halux-d', label: 'Abdutor do Hálux D', image: '/assets/images/AbdutordoHáluxD.png' },
-    { value: 'peca-nao-encontrada-d', label: 'Peça não encontrada (descreva a peça podal no item "Peça podal não encontrada")', image: null },
-    { value: 'nao-se-aplica-d', label: 'Não se aplica', image: null }
+    // { value: 'peca-nao-encontrada-d', label: 'Você quer uma peça diferente? Descreva com detalhes.', image: null },
+    { value: 'nao-se-aplica-d', label: 'Não desejo o elemento no Mediopé', image: null }
   ];
 
   const leftFootOptions = [
@@ -77,8 +80,8 @@ export function MediopePrescriptionStep({
     { value: 'bacre-barra-antero-calcanea-reta', label: 'BACrE - Barra Antero Calcânea Reta', image: '/assets/images/BACrE-BarraAnteroCalcâneaReta.png' },
     { value: 'bacce-barra-antero-calcanea-curva', label: 'BACcE - Barra Antero Calcânea Curva', image: '/assets/images/BACcE-BarraAnteroCalcâneaCurva.png' },
     { value: 'abdutor-halux-e', label: 'Abdutor do Hálux E', image: '/assets/images/AbdutordoHáluxE.png' },
-    { value: 'peca-nao-encontrada-e', label: 'Peça não encontrada (descreva a peça podal no item "Peça podal não encontrada")', image: null },
-    { value: 'nao-se-aplica-e', label: 'Não se aplica', image: null }
+    // { value: 'peca-nao-encontrada-e', label: 'Você quer uma peça diferente? Descreva com detalhes.', image: null },
+    { value: 'nao-se-aplica-e', label: 'Não desejo o elemento no Mediopé', image: null }
   ];
 
   return (
@@ -140,7 +143,7 @@ export function MediopePrescriptionStep({
         {/* Pergunta 2: Peça podal Médiopé D não encontrada */}
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
           <h3 className="text-lg font-bold text-gray-900 mb-4">
-            Peça podal Médiopé D não encontrada (descreva a peça)
+            Você quer uma peça diferente? Descreva com detalhes.
           </h3>
           <textarea
             value={localData.rightFootCustomDescription}
@@ -203,7 +206,7 @@ export function MediopePrescriptionStep({
         {/* Pergunta 4: Peça podal Médiopé E não encontrada */}
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
           <h3 className="text-lg font-bold text-gray-900 mb-4">
-            Peça podal Médiopé E não encontrada (descreva a peça)
+            Você quer uma peça diferente? Descreva com detalhes.
           </h3>
           <textarea
             value={localData.leftFootCustomDescription}
@@ -215,62 +218,98 @@ export function MediopePrescriptionStep({
         </div>
 
         {/* Pergunta 5: Pontos de Alívio - CUT OUT - Depressão */}
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-          <h3 className="text-lg font-bold text-yellow-900 mb-6">
-            Pontos de Alívio - CUT OUT - Depressão
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* PORON */}
-            <div
-              className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${localData.reliefPoints?.includes('poron')
-                ? 'border-yellow-500 bg-yellow-50'
-                : 'border-gray-200 hover:border-yellow-300'
-                }`}
-              onClick={() => handleReliefPointsChange('poron')}
-            >
-              <div className="text-center">
-                <div className="mb-3">
-                  <Image
-                    src="/assets/images/common/PORON.png"
-                    alt="PORON"
-                    width={200}
-                    height={128}
-                    className="w-full h-32 object-contain rounded"
-                  />
+           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                  <h3 className="text-lg font-bold text-yellow-900 mb-6">
+                    Pontos de Alívio - CUT OUT 
+                  </h3>
+        
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {/* PORON */}
+                    <div className="flex items-start space-x-3">
+                      <input
+                        type="radio"
+                        id="poron"
+                        name="reliefMaterial"
+                        checked={localData.reliefPoints?.includes("poron") || false}
+                        onChange={() => handleReliefPointsChange("poron")}
+                        className="mt-1 h-4 w-4 text-yellow-600 border-gray-300 focus:ring-yellow-500"
+                      />
+                      <div className="flex-1">
+                        <div className="mb-3">
+                          <Image
+                            src="/assets/images/common/PORON.png"
+                            alt="PORON"
+                            width={200}
+                            height={128}
+                            className="w-full h-32 object-contain rounded"
+                          />
+                        </div>
+                        <label
+                          htmlFor="poron"
+                          className="font-medium text-gray-900 cursor-pointer"
+                        >
+                          PORON
+                        </label>
+                      </div>
+                    </div>
+        
+                    {/* PS SHOCK */}
+                    <div className="flex items-start space-x-3">
+                      <input
+                        type="radio"
+                        id="ps-shock"
+                        name="reliefMaterial"
+                        checked={localData.reliefPoints?.includes("ps-shock") || false}
+                        onChange={() => handleReliefPointsChange("ps-shock")}
+                        className="mt-1 h-4 w-4 text-yellow-600 border-gray-300 focus:ring-yellow-500"
+                      />
+                      <div className="flex-1">
+                        <div className="mb-3">
+                          <Image
+                            src="/assets/images/common/PSSHOCK.png"
+                            alt="PS SHOCK"
+                            width={200}
+                            height={128}
+                            className="w-full h-32 object-contain rounded"
+                          />
+                        </div>
+                        <label
+                          htmlFor="ps-shock"
+                          className="font-medium text-gray-900 cursor-pointer"
+                        >
+                          PS SHOCK
+                        </label>
+                      </div>
+                    </div>
+        
+                  {/* Sem Preenchimento */}
+                     <div className="flex items-start space-x-3">
+                      <input
+                        type="radio"
+                        id="noCoverage"
+                        name="reliefMaterial"
+                        checked={localData.reliefPoints?.includes("noCoverage") || false}
+                        onChange={() => handleReliefPointsChange("noCoverage")}
+                        className="mt-1 h-4 w-4 text-yellow-600 border-gray-300 focus:ring-yellow-500"
+                      />
+                      <div className="flex-1">
+                        <div className="mb-3">
+                           <div className="text-2xl w-full h-32 object-contain mb-2 flex justify-center items-center">❌</div>
+                        </div>
+                        <label
+                          htmlFor="noCoverage"
+                          className="font-medium text-gray-900 cursor-pointer"
+                        >
+                          Sem Cobertura
+                        </label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <p className="font-medium text-gray-900">PORON</p>
-              </div>
-            </div>
-
-            {/* PS SHOCK */}
-            <div
-              className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${localData.reliefPoints?.includes('ps-shock')
-                ? 'border-yellow-500 bg-yellow-50'
-                : 'border-gray-200 hover:border-yellow-300'
-                }`}
-              onClick={() => handleReliefPointsChange('ps-shock')}
-            >
-              <div className="text-center">
-                <div className="mb-3">
-                  <Image
-                    src="/assets/images/common/PSSHOCK.png"
-                    alt="PS SHOCK"
-                    width={200}
-                    height={128}
-                    className="w-full h-32 object-contain rounded"
-                  />
-                </div>
-                <p className="font-medium text-gray-900">PS SHOCK</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Pergunta 6: Descrição dos materiais */}
         <div className="bg-purple-50 border border-purple-200 rounded-lg p-6">
           <h3 className="text-lg font-bold text-purple-900 mb-4">
-            Descreva aqui os locais para utilizar os materiais PORON ou PS SHOCK (Esquerdo ou Direito)
+                       Quer Utilizar Poron ou PS SHOCK nas peças? Descreva o que você precisa.
           </h3>
           <textarea
             value={localData.materialsDescription}
@@ -283,7 +322,7 @@ export function MediopePrescriptionStep({
 
         {/* Navegação */}
         <div className="flex justify-between items-center pt-6 border-t border-gray-200">
-          <button
+          {/* <button
             type="button"
             onClick={onPrev}
             className="px-6 py-3 rounded-lg font-medium transition-colors
@@ -293,7 +332,7 @@ export function MediopePrescriptionStep({
             <span>←</span>
             <span>Voltar</span>
           </button>
-
+<Button isBack={false} onReturn={true} onClick={onReturn} />
           <button
             type="button"
             onClick={onNext}
@@ -306,7 +345,10 @@ export function MediopePrescriptionStep({
           >
             <span>Continuar</span>
             <span>→</span>
-          </button>
+          </button> */}
+           <Button isBack={true} onClick={onPrev} />
+          <Button isBack={false} onReturn={true} onClick={onReturn} />
+          <Button isBack={false} onClick={onNext} disabled={!isValid()} />
         </div>
       </div>
     </StepWrapper>
