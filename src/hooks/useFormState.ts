@@ -13,6 +13,11 @@ const initialFormData: FormData = {
     professionalName: "",
     whatsapp: "",
   },
+  patientData: {
+    patientName: "",
+    patienteWeight: "",
+    patienteHeight: "",
+  },
   previousOrder: {
     isPreviousOrder: "",
     previousOrderDescription: "",
@@ -137,10 +142,10 @@ export function useFormState() {
     }
     return initialFormData;
   });
-  
+
   const [isLoading, setIsLoading] = useState(false);
   const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
-  
+
   // Referência para detectar mudanças não salvas
   const originalFormDataRef = useRef<FormData>(formData);
   const hasUnsavedChangesRef = useRef(false);
@@ -149,7 +154,7 @@ export function useFormState() {
   useEffect(() => {
     const hasChanges = JSON.stringify(formData) !== JSON.stringify(originalFormDataRef.current);
     hasUnsavedChangesRef.current = hasChanges;
-    
+
     // Salva no cache sempre que houver mudanças
     if (hasChanges) {
       FormCache.set("form_data", formData, 48); // Cache por 48 horas
@@ -169,7 +174,8 @@ export function useFormState() {
     const baseSteps: FormStep[] = [
       "prescription",
       "client-data",
-      "previous-order",
+      "patient-data",
+      // "previous-order",
       "navicular-measurement",
       "prescription-summary",
       "printing-model",
@@ -183,7 +189,7 @@ export function useFormState() {
 
     // Adiciona passos específicos baseados no tipo de palmilha selecionado
     const insoleType = formData.insoleRequest.insoleType;
-    
+
     // Adiciona o passo específico do tipo de palmilha
     if (insoleType === "sapato-inteira") {
       baseSteps.push("sapato-inteira");
@@ -207,7 +213,7 @@ export function useFormState() {
 
     // Adiciona passos específicos baseados na área selecionada
     const selectedArea = formData.palmilhaPrescription.selectedArea;
-    
+
     if (selectedArea === "dedos") {
       baseSteps.push("dedo-prescription");
     } else if (selectedArea === "antepe") {
@@ -240,7 +246,7 @@ export function useFormState() {
     if (formData.files.wantToReview === "yes") {
       baseSteps.push("review");
     }
-    
+
     // Adiciona etapa de pagamento antes da finalização
     baseSteps.push("payment");
     baseSteps.push("finalize");
@@ -343,7 +349,7 @@ export function useFormState() {
     setCompletedSteps(new Set());
     originalFormDataRef.current = initialFormData;
     hasUnsavedChangesRef.current = false;
-    
+
     // Limpa o cache
     FormCache.remove("form_data");
     // console.log("[useFormState] Formulário resetado e cache limpo");
@@ -358,11 +364,11 @@ export function useFormState() {
   const hasUnsavedChangesWithExceptions = useCallback((currentStep: FormStep): boolean => {
     // Etapas que não precisam de confirmação de salvamento
     const stepsWithoutSaveConfirmation: FormStep[] = ["previous-order"];
-    
+
     if (stepsWithoutSaveConfirmation.includes(currentStep)) {
       return false;
     }
-    
+
     return hasUnsavedChangesRef.current;
   }, []);
 

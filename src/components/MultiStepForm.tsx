@@ -9,6 +9,7 @@ import { PendingNavigation } from "@/types/hooks";
 import {
   PrescriptionData,
   ClientData,
+  PatientData,
   PreviousOrderData,
   NavicularMeasurementData,
   PrescriptionSummaryData,
@@ -36,6 +37,7 @@ import { Palmilha3x4Step } from "./steps/form-steps/Sapato3x4";
 import {
   PatientPrescriptionTypeStep,
   PersonalInfoStep,
+  PatientInfoStep,
   PreviousOrderStep,
   FootMeasurementsStep,
   SummaryStep,
@@ -158,7 +160,9 @@ export function MultiStepForm() {
   ) => {
     if (hasUnsavedChangesWithExceptions(currentStep)) {
       setPendingNavigation({ action, description });
-      setShowConfirmationModal(true);
+      // setShowConfirmationModal(true);
+      // todo: modal de confirmação de dados salvos suprimdos
+       action();
     } else {
       action();
     }
@@ -225,7 +229,7 @@ export function MultiStepForm() {
 
     navigateWithConfirmation(action, "avançar para a próxima etapa");
   };
-
+  
   // Função especial para o RetropePrescriptionStep que vai para o passo 10 (palmilha-prescription)
   const handleRetropePrescriptionNavigation = () => {
     const action = () => {
@@ -293,17 +297,32 @@ export function MultiStepForm() {
             isSaving={isSaving}
           />
         );
-      case "previous-order":
+
+         case "patient-data":
         return (
-          <PreviousOrderStep
-            data={formData.previousOrder}
-            onDataChange={(data: PreviousOrderData) =>
-              updateFormData("previousOrder", data)
+          <PatientInfoStep
+            data={formData.patientData}
+            onDataChange={(data: PatientData) =>
+              updateFormData("patientData", data)
             }
-            onNext={handlePreviousOrderNavigation}
+            onNext={nextStep}
             onPrev={prevStep}
+            hasUnsavedChanges={hasUnsavedChanges()}
+            onSaveChanges={handleSaveFormData}
+            isSaving={isSaving}
           />
         );
+      // case "previous-order":
+      //   return (
+      //     <PreviousOrderStep
+      //       data={formData.previousOrder}
+      //       onDataChange={(data: PreviousOrderData) =>
+      //         updateFormData("previousOrder", data)
+      //       }
+      //       onNext={handlePreviousOrderNavigation}
+      //       onPrev={prevStep}
+      //     />
+      //   );
       case "navicular-measurement":
         return (
           <FootMeasurementsStep
@@ -462,6 +481,7 @@ export function MultiStepForm() {
               updateFormData("antepePrescription", data)
             }
             onNext={nextStep}
+            onReturn={handleRetropePrescriptionNavigation}
             onPrev={prevStep}
           />
         );
@@ -473,6 +493,7 @@ export function MultiStepForm() {
               updateFormData("dedoPrescription", data)
             }
             onNext={nextStep}
+             onReturn={handleRetropePrescriptionNavigation}
             onPrev={prevStep}
           />
         );
@@ -495,6 +516,7 @@ export function MultiStepForm() {
               updateFormData("mediopePrescription", data)
             }
             onNext={nextStep}
+             onReturn={handleRetropePrescriptionNavigation}
             onPrev={prevStep}
           />
         );
@@ -505,7 +527,8 @@ export function MultiStepForm() {
             onDataChange={(data: RetropePrescriptionData) =>
               updateFormData("retropePrescription", data)
             }
-            onNext={handleRetropePrescriptionNavigation}
+            onNext={nextStep}
+             onReturn={handleRetropePrescriptionNavigation}
             onPrev={prevStep}
           />
         );

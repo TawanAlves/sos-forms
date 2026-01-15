@@ -60,14 +60,24 @@ export function PatientPrescriptionTypeStep({
             </div>
             <div className="ml-4 flex items-center">
               {/* Imagem para "Prescreva você mesmo" */}
-              <div className="mb-4 relative w-full h-32">
+
+                <div className="h-20 w-20 rounded-xl overflow-hidden relative bg-gray-100 shadow-md border border-gray-300">
                 <Image
-                  src="/assets/images/common/voceMesmo.png"
-                  alt="Você mesmo prescreve"
+                  src="/assets/images/common/vcprescreve.png"
+                  alt="Nossa equipe irá prescrever"
                   fill
-                  className="object-contain"
+                  className="object-contain p-2 opacity-50"
                 />
               </div>
+
+              {/* <div className="mb-4 relative w-full h-32">
+                <Image
+                  src="/assets/images/common/equipePrescreve.png"
+                  alt="Você mesmo prescreve"
+                  fill
+                  className="object-contain z-10"
+                /> 
+              </div>*/}
               {/* Radio button */}
               <div className="ml-6">
                 <input

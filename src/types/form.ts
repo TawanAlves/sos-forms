@@ -9,6 +9,12 @@ export interface ClientData {
   whatsapp: string;
 }
 
+export interface PatientData {
+  patientName: string;
+  patienteWeight: string;
+  patienteHeight: string;
+}
+
 export interface PreviousOrderData {
   isPreviousOrder: "yes" | "no" | "";
   previousOrderDescription: string;
@@ -31,26 +37,26 @@ export interface PrintingModelData {
 
 export interface BlockTypeData {
   blockType:
-    | "black-40"
-    | "ps-shock"
-    | "blue-40"
-    | "viva-army"
-    | "viva-black-gray"
-    | "viva-purple-lilac"
-    | "viva-red-yellow"
-    | "viva-black"
-    | "viva-blue"
-    | "";
+  | "black-40"
+  | "ps-shock"
+  | "blue-40"
+  | "viva-army"
+  | "viva-black-gray"
+  | "viva-purple-lilac"
+  | "viva-red-yellow"
+  | "viva-black"
+  | "viva-blue"
+  | "";
 }
 
 export interface InsoleRequestData {
   insoleType:
-    | "sapato-inteira"
-    | "tenis"
-    | "sapato-3-4"
-    | "chinelo-sandalia"
-    | "chuteira"
-    | "";
+  | "sapato-inteira"
+  | "tenis"
+  | "sapato-3-4"
+  | "chinelo-sandalia"
+  | "chuteira"
+  | "";
 }
 
 export interface SapatoInteiraData {
@@ -68,14 +74,15 @@ export interface SapatoInteiraData {
 
 export interface PalmilhaPrescriptionData {
   selectedArea:
-    | "conforto"
-    | "antepe"
-    | "mediope"
-    | "retrope"
-    | "finalizada"
-    | "dedos"
-    | "sos"
-    | "";
+  | "conforto"
+  | "antepe"
+  | "mediope"
+  | "retrope"
+  | "finalizada"
+  | "dedos"
+  | "sos"
+  | "base"
+  | "";
   corrections: string[];
 }
 
@@ -86,18 +93,18 @@ export interface ImportantInfoData {
 
 export interface AntepePrescriptionData {
   rightFootPrescription:
-    | "bic-barra-infra-capital-d"
-    | "cut-out-d"
-    | "sem-imagem"
-    | "nao-se-aplica"
-    | "";
+  | "bic-barra-infra-capital-d"
+  | "cut-out-d"
+  | "sem-imagem"
+  | "nao-se-aplica"
+  | "";
   rightFootCustomDescription: string;
   leftFootPrescription:
-    | "bic-barra-infra-capital-e"
-    | "cut-out-e"
-    | "sem-imagem"
-    | "nao-se-aplica"
-    | "";
+  | "bic-barra-infra-capital-e"
+  | "cut-out-e"
+  | "sem-imagem"
+  | "nao-se-aplica"
+  | "";
   leftFootCustomDescription: string;
   reliefPoints: string[];
   materialsDescription: string;
@@ -195,6 +202,7 @@ export interface FinalizeData {
 export interface FormData {
   prescription: PrescriptionData;
   clientData: ClientData;
+  patientData: PatientData;
   previousOrder: PreviousOrderData;
   navicularMeasurement: NavicularMeasurementData;
   prescriptionSummary: PrescriptionSummaryData;
@@ -219,7 +227,8 @@ export interface FormData {
 export type FormStep =
   | "prescription"
   | "client-data"
-  | "previous-order"
+  | "patient-data"
+  // | "previous-order"
   | "navicular-measurement"
   | "prescription-summary"
   | "printing-model"
