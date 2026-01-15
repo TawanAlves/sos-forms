@@ -10,7 +10,7 @@ import {
   PrescriptionData,
   ClientData,
   PatientData,
-  PreviousOrderData,
+  // PreviousOrderData,
   NavicularMeasurementData,
   PrescriptionSummaryData,
   PrintingModelData,
@@ -38,7 +38,7 @@ import {
   PatientPrescriptionTypeStep,
   PersonalInfoStep,
   PatientInfoStep,
-  PreviousOrderStep,
+  // PreviousOrderStep,
   FootMeasurementsStep,
   SummaryStep,
   CustomizationStep,
@@ -205,15 +205,15 @@ export function MultiStepForm() {
   };
 
   // Função especial para o PreviousOrderStep que verifica se deve ir para passo final
-  const handlePreviousOrderNavigation = () => {
-    // Se o usuário escolheu "Sim", vai direto para o passo final (finalize)
-    if (formData.previousOrder.isPreviousOrder === "yes") {
-      goToStep("finalize");
-    } else {
-      // Caso contrário, continua normalmente
-      nextStep();
-    }
-  };
+  // const handlePreviousOrderNavigation = () => {
+  //   // Se o usuário escolheu "Sim", vai direto para o passo final (finalize)
+  //   if (formData.previousOrder.isPreviousOrder === "yes") {
+  //     goToStep("finalize");
+  //   } else {
+  //     // Caso contrário, continua normalmente
+  //     nextStep();
+  //   }
+  // };
 
   // Função especial para o SapatoInteiraStep que verifica se deve ir para passo 6
   const handleSapatoInteiraNavigation = () => {

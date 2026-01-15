@@ -102,7 +102,7 @@ const retropeLeftFootOptions: RetropePrescriptionOption[] = [
 
 export function RetropePrescriptionStep({ data, onDataChange, onNext, onPrev, onReturn }: RetropePrescriptionStepProps) {
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [localData, setLocalData] = useState({
+  const [localData] = useState({
     reliefPoints: data.reliefPoints || []
   });
 
@@ -190,11 +190,11 @@ export function RetropePrescriptionStep({ data, onDataChange, onNext, onPrev, on
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleNext = () => {
-    if (validateForm() && onNext) {
-      onNext();
-    }
-  };
+  // const handleNext = () => {
+  //   if (validateForm() && onNext) {
+  //     onNext();
+  //   }
+  // };
 
   // const PrescriptionOption = ({ option, selectedValues, onSelect }: {
   //   option: typeof retropePrescriptionOptions[0];
@@ -213,11 +213,7 @@ export function RetropePrescriptionStep({ data, onDataChange, onNext, onPrev, on
   onSelect: (id: string) => void;
 }) => {
   const isSelected = selectedValues.includes(option.id);
-  const isThicknessRelevant = 
-    option.id !== 'nao-se-aplica' && 
-    option.id !== 'nao-se-aplica-e' &&
-    !option.id.includes('ESTBCALCD') &&   
-    !option.id.includes('ESTBCALCE');
+  // Removed unused variable 'isThicknessRelevant'
 
     return (
       <div 
@@ -316,10 +312,10 @@ export function RetropePrescriptionStep({ data, onDataChange, onNext, onPrev, on
     </label>
     <textarea
       defaultValue={thicknessRight[option.id] || ''}          // ← valor inicial
-      onChange={(e) => {
-        // Opcional: debounce leve só para atualizar preview (se quiser ver em tempo real)
-        // Mas o ideal é NÃO atualizar estado aqui
-      }}
+      // onChange={(e) => {
+      //   // Opcional: debounce leve só para atualizar preview (se quiser ver em tempo real)
+      //   // Mas o ideal é NÃO atualizar estado aqui
+      // }}
       onBlur={(e) => {
         const newValue = e.target.value.trim();
         if (newValue !== (thicknessRight[option.id] || '')) {

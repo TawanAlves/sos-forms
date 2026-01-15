@@ -22,8 +22,8 @@ export function PersonalInfoStep({
   onNext,
   onPrev,
   hasUnsavedChanges = false,
-  onSaveChanges,
-  isSaving = false,
+  // onSaveChanges,
+  // isSaving = false,
 }: PersonalInfoStepProps) {
   const [errors, setErrors] = useState<
     Partial<Record<keyof ClientData, string>>

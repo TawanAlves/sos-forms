@@ -22,8 +22,8 @@ export function PatientInfoStep({
   onNext,
   onPrev,
   hasUnsavedChanges = false,
-  onSaveChanges,
-  isSaving = false,
+  // onSaveChanges,
+  // isSaving = false,
 }: PatientInfoStepProps) {
   const [errors, setErrors] = useState<
     Partial<Record<keyof PatientData, string>>
@@ -32,7 +32,7 @@ export function PatientInfoStep({
 
 
   const handleInputChange = (field: keyof PatientData, value: string) => {
-    let processedValue = value;
+    const processedValue = value;
 
     
     onDataChange({
