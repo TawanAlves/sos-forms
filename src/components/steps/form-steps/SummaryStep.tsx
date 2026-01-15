@@ -62,6 +62,7 @@ export function SummaryStep({
 
   return (
     <StepWrapper
+    // todo: daqui tem que ir direto para o resumo do pedido e pagar
       title="Prescrição resumida"
       subtitle="Exemplo: 1 par de palmilhas para Tenis de cor laranja, tamanho 280x85, Cunha Ante Calcaneo Valgo Bilateral de 3mm + botao retrocapital Bilateral e Cut Out sob 5 metatarso E."
     >

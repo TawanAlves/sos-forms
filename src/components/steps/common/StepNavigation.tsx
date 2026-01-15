@@ -19,18 +19,25 @@ const stepLabels: Record<
     description: "Informações do cliente",
     icon: "👤",
   },
-  "previous-order": {
-    title: "Sintomas",
-    description: "Histórico de sintomas",
-    icon: "🏥",
+  "patient-data": {
+    title: "Dados do Paciente",
+    description: "Informações do paciente",
+    icon: "👤",
   },
+  // "previous-order": {
+  //   // title: "sintomas",
+  //   title: "Dados do paciente",
+  //   description: "Histórico de sintomas",
+  //   icon: "🏥",
+  // },
   "navicular-measurement": {
     title: "Medidas dos Pés",
     description: "Medições podais",
     icon: "📏",
   },
   "prescription-summary": {
-    title: "Resumo",
+    // title: "Resumo",
+    title: "Prescrição",
     description: "Prescrição final",
     icon: "📝",
   },
@@ -40,7 +47,8 @@ const stepLabels: Record<
     icon: "🎨",
   },
   "block-type": {
-    title: "Fresadora CNC",
+    // title: "Fresadora CNC",
+    title: "Base da palmilha",
     description: "Finalização",
     icon: "🖨️",
   },
@@ -56,27 +64,32 @@ const stepLabels: Record<
   },
   // todo; etapa
   "football-boot": {
-    title: "Chuteira",
+    // title: "Chuteira",
+    title: "Medidas",
     description: "Detalhes da palmilha",
     icon: "⚙️",
   },
   sneakers: {
-    title: "Tênis",
+    // title: "Tênis",
+    title: "Medidas",
     description: "Detalhes da palmilha",
     icon: "⚙️",
   },
   flipflops: {
-    title: "Sandália",
+    // title: "Sandália",
+    title: "Medidas",
     description: "Detalhes da palmilha",
     icon: "⚙️",
   },
   "palmilha-3/4": {
-    title: "Palmilha 3/4",
+    // title: "Palmilha 3/4",
+    title: "Medidas",
     description: "Detalhes da palmilha",
     icon: "⚙️",
   },
   "palmilha-prescription": {
-    title: "Prescrição Final",
+    // title: "Prescrição Final",
+    title: "Elementos e peças",
     description: "Correções podais",
     icon: "🎯",
   },
