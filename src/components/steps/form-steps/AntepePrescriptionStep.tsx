@@ -11,13 +11,15 @@ interface AntepePrescriptionStepProps {
   onDataChange: (data: AntepePrescriptionData) => void;
   onNext?: () => void;
   onPrev?: () => void;
-}
+  onReturn?: () => void;
+  }
 
 export function AntepePrescriptionStep({
   data,
   onDataChange,
   onNext,
   onPrev,
+  onReturn,
 }: AntepePrescriptionStepProps) {
   const [localData, setLocalData] = useState<AntepePrescriptionData>(data);
 
@@ -125,7 +127,7 @@ export function AntepePrescriptionStep({
             >
               <div className="text-center py-8">
                 <div className="text-2xl mb-2">❌</div>
-                <p className="font-medium text-gray-900">Não se aplica</p>
+                <p className="font-medium text-gray-900">Não desejo o elemento no Antepé</p>
               </div>
             </div>
           </div>
@@ -134,7 +136,7 @@ export function AntepePrescriptionStep({
         {/* Pergunta 2: Peça podal Antepé D não encontrada */}
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
           <h3 className="text-lg font-bold text-gray-900 mb-4">
-            Peça podal Antepé D não encontrada (descreva a peça)
+                      Você quer uma peça diferente? Descreva com detalhes
           </h3>
           <textarea
             value={localData.rightFootCustomDescription}
@@ -220,7 +222,7 @@ export function AntepePrescriptionStep({
             >
               <div className="text-center py-8">
                 <div className="text-2xl mb-2">❌</div>
-                <p className="font-medium text-gray-900">Não se aplica</p>
+                <p className="font-medium text-gray-900">Não desejo o elemento no Antepé</p>
               </div>
             </div>
           </div>
@@ -229,7 +231,7 @@ export function AntepePrescriptionStep({
         {/* Pergunta 4: Peça podal Antepé E não encontrada */}
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
           <h3 className="text-lg font-bold text-gray-900 mb-4">
-            Peça podal Antepé E não encontrada (descreva a peça)
+            Você quer uma peça diferente? Descreva com detalhes.
           </h3>
           <textarea
             value={localData.leftFootCustomDescription}
@@ -245,10 +247,10 @@ export function AntepePrescriptionStep({
         {/* Pergunta 5: Pontos de Alívio - CUT OUT - Depressão */}
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
           <h3 className="text-lg font-bold text-yellow-900 mb-6">
-            Pontos de Alívio - CUT OUT - Depressão
+            Pontos de Alívio - CUT OUT 
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* PORON */}
             <div className="flex items-start space-x-3">
               <input
@@ -306,14 +308,36 @@ export function AntepePrescriptionStep({
                 </label>
               </div>
             </div>
+
+          {/* Sem Preenchimento */}
+             <div className="flex items-start space-x-3">
+              <input
+                type="radio"
+                id="noCoverage"
+                name="reliefMaterial"
+                checked={localData.reliefPoints?.includes("noCoverage") || false}
+                onChange={() => handleReliefPointsChange("noCoverage")}
+                className="mt-1 h-4 w-4 text-yellow-600 border-gray-300 focus:ring-yellow-500"
+              />
+              <div className="flex-1">
+                <div className="mb-3">
+                   <div className="text-2xl w-full h-32 object-contain mb-2 flex justify-center items-center">❌</div>
+                </div>
+                <label
+                  htmlFor="noCoverage"
+                  className="font-medium text-gray-900 cursor-pointer"
+                >
+                  Sem Cobertura
+                </label>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Pergunta 6: Descrição dos materiais */}
         <div className="bg-purple-50 border border-purple-200 rounded-lg p-6">
           <h3 className="text-lg font-bold text-purple-900 mb-4">
-            Descreva aqui os locais para utilizar os materiais PORON ou PS SHOCK
-            (Esquerdo ou Direito)
+            Quer Utilizar Poron ou PS SHOCK nas peças? Descreva o que você precisa.
           </h3>
           <textarea
             value={localData.materialsDescription}
@@ -329,6 +353,7 @@ export function AntepePrescriptionStep({
         {/* Navegação */}
         <div className="flex justify-between items-center pt-6 border-t border-gray-200">
           <Button isBack={true} onClick={onPrev} />
+          <Button isBack={false} onReturn={true} onClick={onReturn} />
           <Button isBack={false} onClick={onNext} disabled={!isValid()} />
         </div>
       </div>
