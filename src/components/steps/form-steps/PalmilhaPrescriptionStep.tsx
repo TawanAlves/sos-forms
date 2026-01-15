@@ -26,8 +26,9 @@ type PrescriptionOption = {
 const prescriptionOptions: PrescriptionOption[] = [
   {
     value: "conforto",
-    label: "Conforto",
-    description: "Moldada - Uso diário",
+    label: "Moldada Sem Elementos",
+    // description: "Moldada - Uso diário",
+    description: "",
     imagePath: "/assets/images/common/ConfortoMoldada.png",
   },
   {
@@ -48,12 +49,12 @@ const prescriptionOptions: PrescriptionOption[] = [
     description: "Correção específica",
     imagePath: "/assets/images/common/Retropes.png",
   },
-  {
-    value: "finalizada",
-    label: "Prescrição Finalizada",
-    description: "Completa",
-    imagePath: "/assets/images/common/PrescricaoFinalizada.svg",
-  },
+  // {
+  //   value: "finalizada",
+  //   label: "Prescrição Finalizada",
+  //   description: "Completa",
+  //   imagePath: "/assets/images/common/PrescricaoFinalizada.svg",
+  // },
   {
     value: "dedos",
     label: "Dedos",
@@ -62,14 +63,30 @@ const prescriptionOptions: PrescriptionOption[] = [
     //mudar imagem
     //add input para explicar correção e escolher ps shock e poron
   },
-  {
-    value: "sos",
-    label: "SOS PALMILHAS (nós prescrevemos baseados nos dados enviados)",
-    description: "Completa",
+   {
+    value: "base",
+    label: "Base",
+    description: "Elevações de borda",
     imagePath: "/assets/images/common/logo.svg",
     //mudar imagem
-    //tem mais 2 etapas, uma de perguntas
+    //add input para explicar correção e escolher ps shock e poron
   },
+  // {
+  //   value: "sos",
+  //   label: "SOS PALMILHAS (nós prescrevemos baseados nos dados enviados)",
+  //   description: "Completa",
+  //   imagePath: "/assets/images/common/logo.svg",
+  //   //mudar imagem
+  //   //tem mais 2 etapas, uma de perguntas
+  // },
+    //Todo: inserir esse {
+  //   value: "base",
+  //   label: "Base",
+  //   description: "Elevações de  borda",
+  //   imagePath: "/assets/images/common/Dedo.png",
+  //   //mudar imagem
+  //   //add input para explicar correção e escolher ps shock e poron
+  // },
 ];
 
 export function PalmilhaPrescriptionStep({
@@ -135,7 +152,7 @@ export function PalmilhaPrescriptionStep({
     >
       <div className="space-y-6">
         {/* Imagem de referência */}
-        <div className="text-center mb-8">
+        {/* <div className="text-center mb-8">
           <div className="inline-block bg-gray-50 rounded-lg p-4 shadow-md">
             <div className="relative w-full h-48">
               <Image
@@ -150,7 +167,7 @@ export function PalmilhaPrescriptionStep({
               correção
             </p>
           </div>
-        </div>
+        </div> */}
 
         {/* Grid de opções de prescrição */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
