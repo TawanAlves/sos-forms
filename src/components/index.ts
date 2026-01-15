@@ -13,6 +13,7 @@ export { ProgressBar } from "./steps/common/ProgressBar";
 // Form step components
 export { PatientPrescriptionTypeStep } from "./steps/form-steps/PatientPrescriptionTypeStep";
 export { PersonalInfoStep } from "./steps/form-steps/PersonalInfoStep";
+export { PatientInfoStep } from "./steps/form-steps/PatientInfoStep";
 export { PreviousOrderStep } from "./steps/form-steps/PreviousOrderStep";
 export { FootMeasurementsStep } from "./steps/form-steps/FootMeasurementsStep";
 export { SummaryStep } from "./steps/form-steps/SummaryStep";

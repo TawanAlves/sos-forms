@@ -463,7 +463,7 @@ export function SneakersStep({
                 </div>
                 <div>
                   <h4 className="text-lg font-bold text-gray-900">
-                    Palmilhas Finalizadas
+                    Escolher Elementos e Peças            
                   </h4>
                   <p className="text-sm text-gray-600">
                     Ir para prescrição das peças podais

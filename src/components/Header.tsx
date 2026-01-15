@@ -27,7 +27,7 @@ export function Header({ className = "" }: HeaderProps) {
           <div className="hidden md:flex items-center space-x-4">
             <div className="text-right">
               <p className="text-sm font-medium" style={{ color: 'var(--color-slate-700)' }}>
-                📞 Suporte
+                📞 (11) 97870‑2088
               </p>
               <p className="text-xs" style={{ color: 'var(--color-slate-500)' }}>
                 Segunda a Sexta, 8h às 18h

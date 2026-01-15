@@ -54,7 +54,7 @@ export function FootMeasurementsStep({
   const validateMeasurement = (value: string): boolean => {
     if (!value.trim()) return false;
     // [ALTERAÇÃO] Alterado para máximo 2 dígitos conforme solicitado
-    if (value.length > 2) return false; // Máximo 2 dígitos
+    if (value.length > 3) return false; // Máximo 2 dígitos
     const num = parseFloat(value);
     return !isNaN(num) && num >= 0 && num <= 10; // Valores razoáveis entre 0 e 10 cm
   };
@@ -128,10 +128,18 @@ export function FootMeasurementsStep({
     >
       <div className="space-y-8">
         {/* Imagem explicativa da medição */}
-        <div className="bg-gray-100 rounded-lg p-4 text-center">
+        <div className="bg-gray-100 rounded-lg p-4 text-center flex">
           <div className="relative w-full h-64 rounded overflow-hidden">
             <Image
               src="/assets/images/common/passo4.png"
+              alt="Imagem explicativa da medição navicular"
+              fill
+              className="object-contain"
+            />
+          </div>
+          <div className="relative w-full h-64 rounded overflow-hidden">
+            <Image
+              src="/assets/images/common/passo5.png"
               alt="Imagem explicativa da medição navicular"
               fill
               className="object-contain"
@@ -166,7 +174,7 @@ export function FootMeasurementsStep({
                   onChange={(e) =>
                     handleInputChange("rightFootSitting", e.target.value)
                   }
-                  maxLength={2}
+                  maxLength={3}
                   className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors text-gray-900 ${
                     errors.rightFootSitting
                       ? "border-red-500 bg-red-50"
@@ -204,7 +212,7 @@ export function FootMeasurementsStep({
                   onChange={(e) =>
                     handleInputChange("rightFootStanding", e.target.value)
                   }
-                  maxLength={2}
+                  maxLength={3}
                   className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors text-gray-900 ${
                     errors.rightFootStanding
                       ? "border-red-500 bg-red-50"
@@ -291,7 +299,7 @@ export function FootMeasurementsStep({
                   onChange={(e) =>
                     handleInputChange("leftFootSitting", e.target.value)
                   }
-                  maxLength={2}
+                  maxLength={3}
                   className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors text-gray-900 ${
                     errors.leftFootSitting
                       ? "border-red-500 bg-red-50"
@@ -329,7 +337,7 @@ export function FootMeasurementsStep({
                   onChange={(e) =>
                     handleInputChange("leftFootStanding", e.target.value)
                   }
-                  maxLength={2}
+                  maxLength={3}
                   className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors text-gray-900 ${
                     errors.leftFootStanding
                       ? "border-red-500 bg-red-50"

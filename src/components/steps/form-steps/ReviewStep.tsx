@@ -99,7 +99,7 @@ export function ReviewStep({
     const titles: Record<string, string> = {
       prescription: "Tipo de Prescrição",
       "client-data": "Dados Pessoais",
-      "previous-order": "Sintomas",
+      // "previous-order": "Sintomas",
       "navicular-measurement": "Medidas dos Pés",
       "prescription-summary": "Resumo da Prescrição",
       "printing-model": "Modelo de Impressão",
@@ -176,7 +176,7 @@ export function ReviewStep({
         )}
 
         {/* Sintomas / Pedido Anterior */}
-        {renderDataSection(
+        {/* {renderDataSection(
           getStepTitle("previous-order"),
           <div className="text-sm space-y-2">
             <div>
@@ -202,7 +202,7 @@ export function ReviewStep({
               )}
           </div>,
           "previous-order"
-        )}
+        )} */}
 
         {/* Medidas dos Pés */}
         {/* [ALTERAÇÃO] Exibição sempre em cm */}

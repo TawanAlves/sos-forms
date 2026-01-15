@@ -1,6 +1,7 @@
 // Form Steps
 export { PatientPrescriptionTypeStep } from "./form-steps/PatientPrescriptionTypeStep";
 export { PersonalInfoStep } from "./form-steps/PersonalInfoStep";
+export { PatientInfoStep } from "./form-steps/PatientInfoStep";
 export { PreviousOrderStep } from "./form-steps/PreviousOrderStep";
 export { FootMeasurementsStep } from "./form-steps/FootMeasurementsStep";
 export { SummaryStep } from "./form-steps/SummaryStep";

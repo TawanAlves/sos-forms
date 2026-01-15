@@ -405,7 +405,7 @@ export function SapatoInteiraStep({
             Tipo de Cobertura <span className="text-red-500">*</span>
           </label>
 
-          <div className="grid grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-5 gap-6 max-w-4xl mx-auto">
             {coverageOptions.map((option) => (
               <div
                 key={option.value}
@@ -501,7 +501,7 @@ export function SapatoInteiraStep({
                 </div>
                 <div>
                   <h4 className="text-lg font-bold text-gray-900">
-                    Palmilhas Finalizadas
+                    Escolher Elementos e Peças
                   </h4>
                   <p className="text-sm text-gray-600">
                     Ir para prescrição das peças podais

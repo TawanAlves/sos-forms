@@ -200,7 +200,7 @@ export function Palmilha3x4Step({
           <div className="mb-4 flex justify-center gap-10">
             <div className="relative w-80 h-48 bg-gray-100 rounded-lg overflow-hidden">
               <Image
-                src="/assets/images/palmilha-3x4.jpg"
+                src="/assets/images/palmilha-3x4.png"
                 alt="Exemplo de medida da palmilha"
                 fill
                 className="object-contain p-2"
@@ -209,14 +209,14 @@ export function Palmilha3x4Step({
             </div>
             <div className="relative w-80 h-48 bg-gray-100 rounded-lg overflow-hidden">
               <Image
-                src="/assets/images/palmilha-3x4.jpg"
+                src="/assets/images/palmilha-3x4.png"
                 alt="Exemplo de medida da palmilha"
                 fill
                 className="object-contain p-2"
                 sizes="320px"
               />
               <Image
-                src="/assets/images/foot-palmilha-3x4.jpg"
+                src="/assets/images/foot-palmilha-3x4.png"
                 alt="foot-palmilha-3x4"
                 fill
                 className="object-contain p-2"
@@ -368,7 +368,7 @@ export function Palmilha3x4Step({
                 </div>
                 <div>
                   <h4 className="text-lg font-bold text-gray-900">
-                    Palmilhas Finalizadas
+                    Escolher Elementos e Peças
                   </h4>
                   <p className="text-sm text-gray-600">
                     Ir para prescrição das peças podais

@@ -51,7 +51,7 @@ export function ImportantInfoStep({
             >
               Descreva aqui informações importantes relevantes não descritos nos
               itens acima ou fique a vontade para acrescentar mais informações.{" "}
-              <span className="text-red-500">*</span>
+              {/* <span className="text-red-500">*</span> */}
             </label>
           </div>
 
@@ -62,17 +62,8 @@ export function ImportantInfoStep({
               value={localData.additionalInfo}
               onChange={(e) => handleChange("additionalInfo", e.target.value)}
               placeholder="Digite aqui informações adicionais, observações especiais, ou qualquer detalhe importante que não foi mencionado anteriormente..."
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none text-gray-900 ${
-                localData.additionalInfo.trim() === ""
-                  ? "border-red-500 bg-red-50"
-                  : "border-gray-300 hover:border-gray-400"
-              }`}
+              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none text-gray-900 border-gray-300 hover:border-gray-400 `}
             />
-            {localData.additionalInfo.trim() === "" && (
-              <p className="mt-1 text-sm text-red-600">
-                Este campo é obrigatório
-              </p>
-            )}
           </div>
         </div>
 

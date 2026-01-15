@@ -340,56 +340,53 @@ class EmailService {
                 <span class="label">É pedido anterior?</span>
                 <span class="value">${formatValue(isPreviousOrder)}</span>
               </div>
-              ${
-                previousOrderDesc && previousOrderDesc !== "Não informado"
-                  ? `
+              ${previousOrderDesc && previousOrderDesc !== "Não informado"
+        ? `
               <div class="field">
                 <span class="label">Descrição:</span>
                 <span class="value">${formatValue(previousOrderDesc)}</span>
               </div>
               `
-                  : ""
-              }
+        : ""
+      }
             </div>
 
-            ${
-              navicularRightSitting !== "Não informado" ||
-              navicularLeftSitting !== "Não informado"
-                ? `
+            ${navicularRightSitting !== "Não informado" ||
+        navicularLeftSitting !== "Não informado"
+        ? `
             <div class="section">
               <h3>👣 Medidas Naviculares</h3>
               <div class="field">
                 <span class="label">Pé Direito (Sentado):</span>
                 <span class="value">${formatNavicularMeasurement(
-                  navicularRightSitting
-                )}</span>
+          navicularRightSitting
+        )}</span>
               </div>
               <div class="field">
                 <span class="label">Pé Direito (Em Pé):</span>
                 <span class="value">${formatNavicularMeasurement(
-                  navicularRightStanding
-                )}</span>
+          navicularRightStanding
+        )}</span>
               </div>
               <div class="field">
                 <span class="label">Pé Esquerdo (Sentado):</span>
                 <span class="value">${formatNavicularMeasurement(
-                  navicularLeftSitting
-                )}</span>
+          navicularLeftSitting
+        )}</span>
               </div>
               <div class="field">
                 <span class="label">Pé Esquerdo (Em Pé):</span>
                 <span class="value">${formatNavicularMeasurement(
-                  navicularLeftStanding
-                )}</span>
+          navicularLeftStanding
+        )}</span>
               </div>
             </div>
             `
-                : ""
-            }
+        : ""
+      }
 
-            ${
-              manualPrescription !== "Não informado"
-                ? `
+            ${manualPrescription !== "Não informado"
+        ? `
             <div class="section">
               <h3>📝 Resumo da Prescrição</h3>
               <div class="field">
@@ -398,12 +395,11 @@ class EmailService {
               </div>
             </div>
             `
-                : ""
-            }
+        : ""
+      }
 
-            ${
-              printingModel !== "Não informado"
-                ? `
+            ${printingModel !== "Não informado"
+        ? `
             <div class="section">
               <h3>🖨️ Modelo de Impressão</h3>
               <div class="field">
@@ -412,12 +408,11 @@ class EmailService {
               </div>
             </div>
             `
-                : ""
-            }
+        : ""
+      }
 
-            ${
-              blockType !== "Não informado"
-                ? `
+            ${blockType !== "Não informado"
+        ? `
             <div class="section">
               <h3>🧱 Tipo de Bloco</h3>
               <div class="field">
@@ -426,12 +421,11 @@ class EmailService {
               </div>
             </div>
             `
-                : ""
-            }
+        : ""
+      }
 
-            ${
-              insoleType !== "Não informado"
-                ? `
+            ${insoleType !== "Não informado"
+        ? `
             <div class="section">
               <h3>🦶 Solicitação de Palmilhas</h3>
               <div class="field">
@@ -440,12 +434,11 @@ class EmailService {
               </div>
             </div>
             `
-                : ""
-            }
+        : ""
+      }
 
-            ${
-              selectedArea !== "Não informado"
-                ? `
+            ${selectedArea !== "Não informado"
+        ? `
             <div class="section">
               <h3>🩺 Prescrição de Palmilhas</h3>
               <div class="field">
@@ -454,43 +447,39 @@ class EmailService {
               </div>
             </div>
             `
-                : ""
-            }
+        : ""
+      }
 
-            ${
-              additionalInfo !== "Não informado" ||
-              addPoronLayer !== "Não informado"
-                ? `
+            ${additionalInfo !== "Não informado" ||
+        addPoronLayer !== "Não informado"
+        ? `
             <div class="section">
               <h3>ℹ️ Informações Importantes</h3>
-              ${
-                additionalInfo !== "Não informado"
-                  ? `
+              ${additionalInfo !== "Não informado"
+          ? `
               <div class="field">
                 <span class="label">Informações Adicionais:</span>
                 <span class="value">${formatValue(additionalInfo)}</span>
               </div>
               `
-                  : ""
-              }
-              ${
-                addPoronLayer !== "Não informado"
-                  ? `
+          : ""
+        }
+              ${addPoronLayer !== "Não informado"
+          ? `
               <div class="field">
                 <span class="label">Adicionar Camada de Poron:</span>
                 <span class="value">${formatValue(addPoronLayer)}</span>
               </div>
               `
-                  : ""
-              }
+          : ""
+        }
             </div>
             `
-                : ""
-            }
+        : ""
+      }
 
-            ${
-              uploadedFiles && uploadedFiles.length > 0
-                ? `
+            ${uploadedFiles && uploadedFiles.length > 0
+        ? `
             <div class="section">
               <h3>📁 Arquivos</h3>
               <div class="field">
@@ -505,28 +494,27 @@ class EmailService {
                 <span class="label">Links para Download:</span>
                 <div class="value">
                   ${uploadedFiles
-                    .map(
-                      (file: Record<string, unknown>) => `
+          .map(
+            (file: Record<string, unknown>) => `
                     <div style="margin-bottom: 8px;">
-                      <a href="${
-                        process.env.NEXT_PUBLIC_BASE_URL ||
-                        "http://localhost:3000"
-                      }${file.url}" 
+                      <a href="${process.env.NEXT_PUBLIC_BASE_URL ||
+              "http://localhost:3000"
+              }${file.url}" 
                          style="color: #2563eb; text-decoration: underline; font-weight: 500;">
                         📎 ${file.originalName} (${formatFileSize(
-                        Number(file.size)
-                      )})
+                Number(file.size)
+              )})
                       </a>
                     </div>
                   `
-                    )
-                    .join("")}
+          )
+          .join("")}
                 </div>
               </div>
             </div>
             `
-                : ""
-            }
+        : ""
+      }
 
             <div class="section">
               <h3>✅ Finalização</h3>
@@ -534,26 +522,25 @@ class EmailService {
                 <span class="label">Pedido Confirmado:</span>
                 <span class="value">${formatValue(orderConfirmed)}</span>
               </div>
-              ${
-                orderNumber && orderNumber !== "Não informado"
-                  ? `
+              ${orderNumber && orderNumber !== "Não informado"
+        ? `
               <div class="field">
                 <span class="label">Número do Pedido:</span>
                 <span class="value">${formatValue(orderNumber)}</span>
               </div>
               `
-                  : ""
-              }
+        : ""
+      }
             </div>
           </div>
           
           <div class="footer">
             <p>Obrigado por escolher a SOS Palmilhas!</p>
             <p><strong>SOS Palmilhas - Especialistas em palmilhas personalizadas</strong></p>
-            <p>📧 contato@sospalmilha.com.br | 📱(11) 97870‑2088</p>
+            <p>📧 licenciados@sospalmilha.com.br | 📱(11) 97870‑2088</p>
             <p>Data e hora: ${new Date().toLocaleString("pt-BR", {
-              timeZone: "America/Sao_Paulo",
-            })}</p>
+        timeZone: "America/Sao_Paulo",
+      })}</p>
           </div>
         </div>
       </body>
@@ -735,9 +722,8 @@ class EmailService {
         content += `- ${file.originalName} (${formatFileSize(
           Number(file.size)
         )})\n`;
-        content += `  URL: ${
-          process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-        }${file.url}\n`;
+        content += `  URL: ${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+          }${file.url}\n`;
       });
       content += "\n";
     }
@@ -785,13 +771,12 @@ class EmailService {
             <div class="section">
               <h3>Olá ${clientName}!</h3>
               <p>Seu pedido foi recebido com sucesso e está sendo processado.</p>
-              ${
-                orderNumber && orderNumber !== "Não informado"
-                  ? `
+              ${orderNumber && orderNumber !== "Não informado"
+        ? `
               <p><strong>Número do pedido:</strong> ${orderNumber}</p>
               `
-                  : ""
-              }
+        : ""
+      }
               <p>Em breve entraremos em contato para mais informações sobre o seu pedido.</p>
             </div>
           </div>
@@ -799,10 +784,10 @@ class EmailService {
           <div class="footer">
             <p>Obrigado por escolher a SOS Palmilhas!</p>
             <p><strong>SOS Palmilhas - Especialistas em palmilhas personalizadas</strong></p>
-            <p>📧 contato@sospalmilha.com.br | 📱 (11) 97870‑2088</p>
+            <p>📧 licenciados@sospalmilha.com.br | 📱 (11) 97870‑2088</p>
             <p>Data e hora: ${new Date().toLocaleString("pt-BR", {
-              timeZone: "America/Sao_Paulo",
-            })}</p>
+        timeZone: "America/Sao_Paulo",
+      })}</p>
           </div>
         </div>
       </body>

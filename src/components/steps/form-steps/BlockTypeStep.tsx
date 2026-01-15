@@ -30,7 +30,7 @@ const blockOptions: BlockOption[] = [
   {
     value: "black-40",
     label: "Preto",
-    description: "densidade 40",
+    description: "Eva dureza 28 Shore A",
     additionalCost: false,
   },
   // {

@@ -101,7 +101,7 @@ export function SosPrescriptionStep({
           <div className="mb-3 flex justify-center h-[16rem]">
             <div className="relative w-full h-full rounded-lg overflow-hidden flex">
               <Image
-                src="/assets/images/jacktest.jpg"
+                src="/assets/images/jacktest.png"
                 alt="jack-test"
                 className="w-full h-full object-contain rounded"
                 width={200}
@@ -213,7 +213,7 @@ export function SosPrescriptionStep({
             <div className="mb-3 flex justify-center h-[16rem]">
               <div className="relative w-full h-full rounded-lg overflow-hidden flex">
                 <Image
-                  src="/assets/images/lung-test-right.jpg"
+                  src="/assets/images/lung-test-right.png"
                   alt="lung-test-right"
                   className="w-full h-full object-contain rounded"
                   width={200}
@@ -232,76 +232,98 @@ export function SosPrescriptionStep({
         </div>
 
         {/* Pergunta 5: Pontos de Alívio - CUT OUT - Depressão */}
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-          <h3 className="text-lg font-bold text-yellow-900 mb-6">
-            Pontos de Alívio - CUT OUT - Depressão
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* PORON */}
-            <div className="flex items-start space-x-3">
-              <input
-                type="radio"
-                id="poron"
-                name="reliefMaterial"
-                checked={localData.reliefPoints?.includes("poron") || false}
-                onChange={() => handleReliefPointsChange("poron")}
-                className="mt-1 h-4 w-4 text-yellow-600 border-gray-300 focus:ring-yellow-500"
-              />
-              <div className="flex-1">
-                <div className="mb-3">
-                  <Image
-                    src="/assets/images/common/PORON.png"
-                    alt="PORON"
-                    width={200}
-                    height={128}
-                    className="w-full h-32 object-contain rounded"
-                  />
+         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                <h3 className="text-lg font-bold text-yellow-900 mb-6">
+                  Pontos de Alívio - CUT OUT 
+                </h3>
+      
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* PORON */}
+                  <div className="flex items-start space-x-3">
+                    <input
+                      type="radio"
+                      id="poron"
+                      name="reliefMaterial"
+                      checked={localData.reliefPoints?.includes("poron") || false}
+                      onChange={() => handleReliefPointsChange("poron")}
+                      className="mt-1 h-4 w-4 text-yellow-600 border-gray-300 focus:ring-yellow-500"
+                    />
+                    <div className="flex-1">
+                      <div className="mb-3">
+                        <Image
+                          src="/assets/images/common/PORON.png"
+                          alt="PORON"
+                          width={200}
+                          height={128}
+                          className="w-full h-32 object-contain rounded"
+                        />
+                      </div>
+                      <label
+                        htmlFor="poron"
+                        className="font-medium text-gray-900 cursor-pointer"
+                      >
+                        PORON
+                      </label>
+                    </div>
+                  </div>
+      
+                  {/* PS SHOCK */}
+                  <div className="flex items-start space-x-3">
+                    <input
+                      type="radio"
+                      id="ps-shock"
+                      name="reliefMaterial"
+                      checked={localData.reliefPoints?.includes("ps-shock") || false}
+                      onChange={() => handleReliefPointsChange("ps-shock")}
+                      className="mt-1 h-4 w-4 text-yellow-600 border-gray-300 focus:ring-yellow-500"
+                    />
+                    <div className="flex-1">
+                      <div className="mb-3">
+                        <Image
+                          src="/assets/images/common/PSSHOCK.png"
+                          alt="PS SHOCK"
+                          width={200}
+                          height={128}
+                          className="w-full h-32 object-contain rounded"
+                        />
+                      </div>
+                      <label
+                        htmlFor="ps-shock"
+                        className="font-medium text-gray-900 cursor-pointer"
+                      >
+                        PS SHOCK
+                      </label>
+                    </div>
+                  </div>
+      
+                {/* Sem Preenchimento */}
+                   <div className="flex items-start space-x-3">
+                    <input
+                      type="radio"
+                      id="noCoverage"
+                      name="reliefMaterial"
+                      checked={localData.reliefPoints?.includes("noCoverage") || false}
+                      onChange={() => handleReliefPointsChange("noCoverage")}
+                      className="mt-1 h-4 w-4 text-yellow-600 border-gray-300 focus:ring-yellow-500"
+                    />
+                    <div className="flex-1">
+                      <div className="mb-3">
+                         <div className="text-2xl w-full h-32 object-contain mb-2 flex justify-center items-center">❌</div>
+                      </div>
+                      <label
+                        htmlFor="noCoverage"
+                        className="font-medium text-gray-900 cursor-pointer"
+                      >
+                        Sem Cobertura
+                      </label>
+                    </div>
+                  </div>
                 </div>
-                <label
-                  htmlFor="poron"
-                  className="font-medium text-gray-900 cursor-pointer"
-                >
-                  PORON
-                </label>
               </div>
-            </div>
-
-            {/* PS SHOCK */}
-            <div className="flex items-start space-x-3">
-              <input
-                type="radio"
-                id="ps-shock"
-                name="reliefMaterial"
-                checked={localData.reliefPoints?.includes("ps-shock") || false}
-                onChange={() => handleReliefPointsChange("ps-shock")}
-                className="mt-1 h-4 w-4 text-yellow-600 border-gray-300 focus:ring-yellow-500"
-              />
-              <div className="flex-1">
-                <div className="mb-3">
-                  <Image
-                    src="/assets/images/common/PSSHOCK.png"
-                    alt="PS SHOCK"
-                    width={200}
-                    height={128}
-                    className="w-full h-32 object-contain rounded"
-                  />
-                </div>
-                <label
-                  htmlFor="ps-shock"
-                  className="font-medium text-gray-900 cursor-pointer"
-                >
-                  PS SHOCK
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
         {/* Pergunta 6: Descrição dos materiais */}
         <div className="border border-gray-200 rounded-lg p-6">
           <h3 className="text-lg font-bold text-black mb-4">
-            Descreva aqui os locais para utilizar os materiais PORON ou PS SHOCK
-            (Esquerdo ou Direito)
+            Quer Utilizar Poron ou PS SHOCK nas peças? Descreva o que você precisa.
           </h3>
           <textarea
             value={localData.materialsDescription}

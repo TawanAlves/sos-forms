@@ -255,7 +255,7 @@ export function FilesStep({
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
-  const canProceed = localData.wantToReview !== '';
+  const canProceed = localData.uploadedFiles.length > 0 && localData.wantToReview !== '' ;
 
   return (
     <StepWrapper

@@ -266,7 +266,7 @@ export function FlipflopsStep({
           <div className="mb-4 flex justify-center">
             <div className="relative w-80 h-48 bg-gray-100 rounded-lg overflow-hidden">
               <Image
-                src="/assets/images/sandalia.jpg"
+                src="/assets/images/sandalia.png"
                 alt="Exemplo de medida da palmilha"
                 fill
                 className="object-contain p-2"
@@ -494,7 +494,7 @@ export function FlipflopsStep({
                 </div>
                 <div>
                   <h4 className="text-lg font-bold text-gray-900">
-                    Palmilhas Finalizadas
+                    Escolher Elementos e Peças
                   </h4>
                   <p className="text-sm text-gray-600">
                     Ir para prescrição das peças podais

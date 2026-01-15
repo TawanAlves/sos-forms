@@ -6,6 +6,7 @@ export interface BaseStepProps<T = Record<string, unknown>> {
   onUpdate: (data: Partial<T>) => void;
   onNext?: () => void;
   onPrev?: () => void;
+  onReturn?: () => void;
 }
 
 /**
@@ -52,6 +53,7 @@ export interface StepNavigationProps {
   // Props opcionais para compatibilidade
   onNext?: () => void;
   onPrev?: () => void;
+  onReturn?: () => void;
   nextLabel?: string;
   prevLabel?: string;
   canProceed?: boolean;

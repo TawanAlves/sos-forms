@@ -6,6 +6,8 @@ import type { BaseStepProps } from "@/types/steps";
 import type { PreviousOrderData } from "@/types/form";
 import { Button } from "../common/ButtonComp";
 
+// todo: etapa retirada na revisão do André por n ter dados do cliente no sistema
+
 interface PreviousOrderStepProps
   extends Omit<BaseStepProps<PreviousOrderData>, "onUpdate"> {
   onDataChange: (data: PreviousOrderData) => void;

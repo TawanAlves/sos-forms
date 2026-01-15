@@ -256,7 +256,7 @@ export function FinalizeStep({
                 type="button"
                 className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-medium"
                 onClick={() => {
-                  window.location.href = `mailto:contato@sospalmilha.com.br?subject=Pedido ${localData.orderNumber}`;
+                  window.location.href = `mailto:licenciados@sospalmilha.com.br?subject=Pedido ${localData.orderNumber}`;
                 }}
               >
                 📧 Email
