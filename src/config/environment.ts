@@ -14,7 +14,7 @@ import { z } from "zod";
   PAGSEGURO_SIMULATION_MODE: z.string().transform((val) => val.toLowerCase() === 'true').default('true'),
 
   // Pagar.me
-  PAGARME_API_KEY: z.string().min(1, "PAGARME_API_KEY é obrigatório"),
+  // PAGARME_API_KEY: z.string().min(1, "PAGARME_API_KEY é obrigatório"),
 
   // Email
   SMTP_HOST: z.string().min(1, "SMTP_HOST é obrigatório"),
