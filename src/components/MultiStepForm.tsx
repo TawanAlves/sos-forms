@@ -188,11 +188,12 @@ export function MultiStepForm() {
   const handleFinalizeStepBack = () => {
     const action = () => {
       // Se veio do previous-order (escolheu "Sim"), volta para previous-order
-      if (formData.previousOrder.isPreviousOrder === "yes") {
-        goToStep("previous-order");
-      }
-      // Se veio do antepé, volta para antepe-prescription
-      else if (formData.palmilhaPrescription.selectedArea === "antepe") {
+      // if (formData.previousOrder.isPreviousOrder === "yes") {
+      //   goToStep("previous-order");
+      // }
+      // // Se veio do antepé, volta para antepe-prescription
+      // else
+         if (formData.palmilhaPrescription.selectedArea === "antepe") {
         goToStep("antepe-prescription");
       }
       // Caso contrário, usa a navegação normal

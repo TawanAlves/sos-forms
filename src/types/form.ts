@@ -228,7 +228,7 @@ export type FormStep =
   | "prescription"
   | "client-data"
   | "patient-data"
-  | "previous-order"
+  // | "previous-order"
   | "navicular-measurement"
   | "prescription-summary"
   | "printing-model"

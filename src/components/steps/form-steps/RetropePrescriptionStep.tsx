@@ -115,6 +115,13 @@ export function RetropePrescriptionStep({ data, onDataChange, onNext, onPrev, on
     }));
   };
 
+  const handleChange = (field: keyof RetropePrescriptionData, value: string | string[]) => {
+    onDataChange({
+      ...data,
+      [field]: value
+    });
+  };
+
   const handleRightFootChange = (prescriptionId: string) => {
     const currentSelections = data.rightFootPrescription || [];
     let newSelections;
@@ -179,16 +186,16 @@ export function RetropePrescriptionStep({ data, onDataChange, onNext, onPrev, on
     }
   };
 
-  const validateForm = (): boolean => {
-    const newErrors: Record<string, string> = {};
+  // const validateForm = (): boolean => {
+  //   const newErrors: Record<string, string> = {};
 
-    if (!data.rightFootPrescription || data.rightFootPrescription.length === 0) {
-      newErrors.rightFoot = 'Selecione pelo menos uma prescrição para o pé direito';
-    }
+  //   if (!data.rightFootPrescription || data.rightFootPrescription.length === 0) {
+  //     newErrors.rightFoot = 'Selecione pelo menos uma prescrição para o pé direito';
+  //   }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  //   setErrors(newErrors);
+  //   return Object.keys(newErrors).length === 0;
+  // };
 
   // const handleNext = () => {
   //   if (validateForm() && onNext) {

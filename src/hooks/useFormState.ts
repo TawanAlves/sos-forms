@@ -363,7 +363,9 @@ export function useFormState() {
   // Função para verificar se há mudanças não salvas (ignorando etapas específicas)
   const hasUnsavedChangesWithExceptions = useCallback((currentStep: FormStep): boolean => {
     // Etapas que não precisam de confirmação de salvamento
-    const stepsWithoutSaveConfirmation: FormStep[] = ["previous-order"];
+    // const stepsWithoutSaveConfirmation: FormStep[] = ["previous-order"];
+    const stepsWithoutSaveConfirmation: FormStep[] = ["prescription"];
+
 
     if (stepsWithoutSaveConfirmation.includes(currentStep)) {
       return false;
