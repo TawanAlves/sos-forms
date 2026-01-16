@@ -7,12 +7,14 @@ import { z } from "zod";
 
 /**
  * Schema de validação para configuração do servidor (com secrets)
- */
-const serverEnvSchema = z.object({
+ */const serverEnvSchema = z.object({
   // PagSeguro
   PAGSEGURO_TOKEN: z.string().optional(),
   PAGSEGURO_ENVIRONMENT: z.enum(['sandbox', 'production']).default('sandbox'),
   PAGSEGURO_SIMULATION_MODE: z.string().transform((val) => val.toLowerCase() === 'true').default('true'),
+
+  // Pagar.me
+  PAGARME_API_KEY: z.string().min(1, "PAGARME_API_KEY é obrigatório"),
 
   // Email
   SMTP_HOST: z.string().min(1, "SMTP_HOST é obrigatório"),
