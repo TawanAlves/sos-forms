@@ -33,7 +33,7 @@ export function Button({ isBack,onReturn = false, disabled = false, onClick }: B
         disabled={disabled}
         className="px-6 py-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
       >
-        <span>Outro Elemento</span>
+        <span>Escolher Outro Elemento</span>
       </button>
       // </div>
     );

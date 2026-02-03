@@ -28,9 +28,9 @@ const initialFormData: FormData = {
     leftFootSitting: "",
     leftFootStanding: "",
   },
-  prescriptionSummary: {
-    manualPrescription: "",
-  },
+  // prescriptionSummary: {
+  //   manualPrescription: "",
+  // },
   printingModel: {
     modelType: "",
   },
@@ -177,7 +177,7 @@ export function useFormState() {
       "patient-data",
       // "previous-order",
       "navicular-measurement",
-      "prescription-summary",
+      // "prescription-summary",
       "printing-model",
       "insole-request",
     ];

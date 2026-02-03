@@ -35,12 +35,12 @@ const stepLabels: Record<
     description: "Medições podais",
     icon: "📏",
   },
-  "prescription-summary": {
-    // title: "Resumo",
-    title: "Prescrição",
-    description: "Prescrição final",
-    icon: "📝",
-  },
+  // "prescription-summary": {
+  //   // title: "Resumo",
+  //   title: "Prescrição",
+  //   description: "Prescrição final",
+  //   icon: "📝",
+  // },
   "printing-model": {
     title: "Personalização",
     description: "Customização",

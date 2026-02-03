@@ -205,7 +205,7 @@ export interface FormData {
   patientData: PatientData;
   previousOrder: PreviousOrderData;
   navicularMeasurement: NavicularMeasurementData;
-  prescriptionSummary: PrescriptionSummaryData;
+  // prescriptionSummary: PrescriptionSummaryData;
   printingModel: PrintingModelData;
   blockType: BlockTypeData;
   insoleRequest: InsoleRequestData;
@@ -230,7 +230,7 @@ export type FormStep =
   | "patient-data"
   // | "previous-order"
   | "navicular-measurement"
-  | "prescription-summary"
+  // | "prescription-summary"
   | "printing-model"
   | "block-type"
   | "insole-request"

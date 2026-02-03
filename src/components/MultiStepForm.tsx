@@ -338,17 +338,17 @@ export function MultiStepForm() {
             isSaving={isSaving}
           />
         );
-      case "prescription-summary":
-        return (
-          <SummaryStep
-            data={formData.prescriptionSummary}
-            onDataChange={(data: PrescriptionSummaryData) =>
-              updateFormData("prescriptionSummary", data)
-            }
-            onNext={nextStep}
-            onPrev={prevStep}
-          />
-        );
+      // case "prescription-summary":
+      //   return (
+      //     <SummaryStep
+      //       data={formData.prescriptionSummary}
+      //       onDataChange={(data: PrescriptionSummaryData) =>
+      //         updateFormData("prescriptionSummary", data)
+      //       }
+      //       onNext={nextStep}
+      //       onPrev={prevStep}
+      //     />
+      //   );
       case "printing-model":
         return (
           <CustomizationStep

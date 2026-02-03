@@ -71,6 +71,136 @@ const coverageOptions: CoverageOption[] = [
     label: "EVA Perfurado Cinza",
     imagePath: "/assets/images/EVA-Perfurado-Cinza.jpg",
   },
+    {
+    value: "38",
+    label: "-",
+    imagePath: "/assets/images/38.png",
+  },
+  {
+    value: "39",
+    label: "-",
+    imagePath: "/assets/images/39.png",
+  },
+  {
+    value: "40",
+    label: "-",
+    imagePath: "/assets/images/40.png",
+  },
+  {
+    value: "41",
+    label: "-",
+    imagePath: "/assets/images/41.png",
+  },
+  {
+    value: "42",
+    label: "-",
+    imagePath: "/assets/images/42.png",
+  },
+  {
+    value: "43",
+    label: "-",
+    imagePath: "/assets/images/43.png",
+  },
+  {
+    value: "44",
+    label: "-",
+    imagePath: "/assets/images/44.png",
+  },
+  {
+    value: "45",
+    label: "-",
+    imagePath: "/assets/images/45.png",
+  },
+  {
+    value: "46",
+    label: "-",
+    imagePath: "/assets/images/46.png",
+  },
+  {
+    value: "47",
+    label: "-",
+    imagePath: "/assets/images/47.png",
+  },
+   {
+    value: "48",
+    label: "-",
+    imagePath: "/assets/images/48.png",
+  },
+   {
+    value: "49",
+    label: "-",
+    imagePath: "/assets/images/49.png",
+  },
+   {
+    value: "50",
+    label: "-",
+    imagePath: "/assets/images/50.png",
+  },
+   {
+    value: "51",
+    label: "-",
+    imagePath: "/assets/images/51.png",
+  },
+   {
+    value: "52",
+    label: "-",
+    imagePath: "/assets/images/52.png",
+  },
+   {
+    value: "54",
+    label: "-",
+    imagePath: "/assets/images/54.png",
+  },
+   {
+    value: "55",
+    label: "-",
+    imagePath: "/assets/images/55.png",
+  },
+   {
+    value: "56",
+    label: "-",
+    imagePath: "/assets/images/56.png",
+  },
+   {
+    value: "57",
+    label: "-",
+    imagePath: "/assets/images/57.png",
+  },
+   {
+    value: "60",
+    label: "-",
+    imagePath: "/assets/images/60.png",
+  },
+   {
+    value: "61",
+    label: "-",
+    imagePath: "/assets/images/61.png",
+  },
+   {
+    value: "62",
+    label: "-",
+    imagePath: "/assets/images/62.png",
+  },
+   {
+    value: "63",
+    label: "-",
+    imagePath: "/assets/images/63.png",
+  },
+   {
+    value: "66",
+    label: "-",
+    imagePath: "/assets/images/66.png",
+  },
+   {
+    value: "67",
+    label: "-",
+    imagePath: "/assets/images/67.png",
+  },
+   {
+    value: "68",
+    label: "-",
+    imagePath: "/assets/images/68.png",
+  },
 
   //   SAPATO (3/4)
   //   - altera pergunta da palmilha e imagem 'Mensurar a distância do calcâneo até a cabeça do 1º metatarso (art. metatarso-falangiana)
@@ -390,7 +520,7 @@ export function FootballBootStep({
             Tipo de Cobertura <span className="text-red-500">*</span>
           </label>
 
-          <div className="grid grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-5 gap-6 max-w-4xl mx-auto">
             {coverageOptions.map((option) => (
               <div
                 key={option.value}

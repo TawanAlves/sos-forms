@@ -101,7 +101,7 @@ export function ReviewStep({
       "client-data": "Dados Pessoais",
       // "previous-order": "Sintomas",
       "navicular-measurement": "Medidas dos Pés",
-      "prescription-summary": "Resumo da Prescrição",
+      // "prescription-summary": "Resumo da Prescrição",
       "printing-model": "Modelo de Impressão",
       "block-type": "Tipo de Bloco",
       "insole-request": "Tipo de Palmilha",
