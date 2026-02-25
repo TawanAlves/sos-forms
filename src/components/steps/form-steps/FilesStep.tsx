@@ -51,7 +51,7 @@ export function FilesStep({
 
   const handleFileUpload = async (files: FileList | null) => {
     console.log('🚀 [FilesStep] Iniciando handleFileUpload', { filesCount: files?.length || 0 });
-    
+
     if (!files) {
       console.log('❌ [FilesStep] Nenhum arquivo fornecido');
       return;
@@ -60,7 +60,7 @@ export function FilesStep({
     const fileArray = Array.from(files);
     const errors: string[] = [];
     const validFiles: File[] = [];
-    
+
     console.log('📁 [FilesStep] Arquivos recebidos:', fileArray.map(f => ({ name: f.name, size: f.size, type: f.type })));
 
     // Validação inicial dos arquivos
@@ -70,10 +70,10 @@ export function FilesStep({
         size: file.size,
         type: file.type
       });
-      
+
       // Verifica se o arquivo é menor que 100MB
       const isValidSize = file.size <= 100 * 1024 * 1024;
-      
+
       // Verifica tipos de arquivo permitidos
       const allowedTypes = [
         'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/bmp',
@@ -82,13 +82,13 @@ export function FilesStep({
         'application/octet-stream' // Para arquivos .stl
       ];
       const isValidType = allowedTypes.includes(file.type) || file.name.endsWith('.stl');
-      
+
       console.log(`✅ [FilesStep] Validação do arquivo ${file.name}:`, {
         isValidSize,
         isValidType,
         sizeInMB: (file.size / (1024 * 1024)).toFixed(2)
       });
-      
+
       if (!isValidSize) {
         errors.push(`${file.name}: Arquivo muito grande (máximo 100MB)`);
         console.log(`❌ [FilesStep] Arquivo ${file.name} rejeitado: muito grande`);
@@ -144,18 +144,18 @@ export function FilesStep({
 
         const result = await response.json();
         console.log('✅ [FilesStep] Upload bem-sucedido:', result);
-        
+
         // Atualiza os dados com as informações dos arquivos enviados
         const newUploadedFiles = [...localData.uploadedFiles, ...validFiles].slice(0, 10);
         const newUploadedFileInfo = [...localData.uploadedFileInfo, ...result.files].slice(0, 10);
-        
+
         console.log('🔄 [FilesStep] Atualizando estado local:', {
           currentFiles: localData.uploadedFiles.length,
           newFiles: validFiles.length,
           totalFiles: newUploadedFiles.length,
           fileInfo: result.files
         });
-        
+
         // Atualiza o estado local primeiro
         const updatedData = {
           ...localData,
@@ -163,13 +163,13 @@ export function FilesStep({
           uploadedFileInfo: newUploadedFileInfo
         };
         setLocalData(updatedData);
-        
+
         // Depois notifica o componente pai
         onDataChange(updatedData);
-        
+
         setUploadProgress(100);
         console.log('✅ [FilesStep] Upload concluído com sucesso');
-        
+
         // Limpa erros se o upload foi bem-sucedido
         if (errors.length === 0) {
           setFileErrors([]);
@@ -190,9 +190,9 @@ export function FilesStep({
 
   const removeFile = async (index: number) => {
     console.log('🗑️ [FilesStep] Iniciando remoção de arquivo:', { index, fileInfo: localData.uploadedFileInfo[index] });
-    
+
     const fileToRemove = localData.uploadedFileInfo[index];
-    
+
     // Remove do servidor se o arquivo foi enviado
     if (fileToRemove?.fileName) {
       console.log('🌐 [FilesStep] Removendo arquivo do servidor:', fileToRemove.fileName);
@@ -204,16 +204,16 @@ export function FilesStep({
           },
           body: JSON.stringify({ fileName: fileToRemove.fileName }),
         });
-        
+
         console.log('📡 [FilesStep] Resposta da remoção:', {
           status: response.status,
           ok: response.ok
         });
-        
+
         if (!response.ok) {
           throw new Error(`Erro ${response.status}: ${response.statusText}`);
         }
-        
+
         console.log('✅ [FilesStep] Arquivo removido do servidor com sucesso');
       } catch (error) {
         console.error('❌ [FilesStep] Erro ao remover arquivo do servidor:', error);
@@ -225,14 +225,14 @@ export function FilesStep({
     // Remove dos arrays locais
     const updatedFiles = localData.uploadedFiles.filter((_: File, i: number) => i !== index);
     const updatedFileInfo = localData.uploadedFileInfo.filter((_: UploadedFile, i: number) => i !== index);
-    
+
     console.log('🔄 [FilesStep] Atualizando estado após remoção:', {
       beforeFiles: localData.uploadedFiles.length,
       afterFiles: updatedFiles.length,
       beforeInfo: localData.uploadedFileInfo.length,
       afterInfo: updatedFileInfo.length
     });
-    
+
     // Atualiza o estado local primeiro
     const updatedData = {
       ...localData,
@@ -240,10 +240,10 @@ export function FilesStep({
       uploadedFileInfo: updatedFileInfo
     };
     setLocalData(updatedData);
-    
+
     // Depois notifica o componente pai
     onDataChange(updatedData);
-    
+
     console.log('✅ [FilesStep] Arquivo removido com sucesso');
   };
 
@@ -255,7 +255,7 @@ export function FilesStep({
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
-  const canProceed = localData.uploadedFiles.length > 0 && localData.wantToReview !== '' ;
+  const canProceed = localData.uploadedFiles.length > 0 && localData.wantToReview !== '';
 
   return (
     <StepWrapper
@@ -285,7 +285,7 @@ export function FilesStep({
             </div>
 
             <div>
-              <h4 className="font-semibold mb-2">FOTOS DOS MMII:</h4>
+              <h4 className="font-semibold mb-2">FOTOS DOS MMII: <span className='text-red-600'>*</span></h4>
               <ul className="list-disc list-inside space-y-1 ml-4">
                 <li>Vista Posterior (retropés)</li>
                 <li>Vista Anterior (antepés)</li>
@@ -295,18 +295,25 @@ export function FilesStep({
             </div>
 
             <div>
-              <h4 className="font-semibold mb-2">VÍDEOS: 5 a 10 segundos</h4>
+              <h4 className="font-semibold mb-2">VÍDEOS: 5 a 10 segundos <span className='text-red-600'>*</span></h4>
               <ul className="list-disc list-inside space-y-1 ml-4">
                 <li>Marcha e ou corrida (anterior, posterior e perfil)</li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-2">EXAMES COMPLEMENTARES:</h4>
+              <h4 className="font-semibold mb-2">EXAMES COMPLEMENTARES: <span className='text-red-600'>*</span></h4>
               <ul className="list-disc list-inside space-y-1 ml-4">
                 <li>Laudos de exames: raio-x, RNM, Tomografia, etc</li>
               </ul>
             </div>
+
+            <div>
+              <p className='text-red-500'>*:ITENS SÃO NECESSÁRIOS APENAS QUANDO A NOSSA EQUIPE FIZER A PRESCRIÇÃO.</p>
+
+            </div>
+
+
           </div>
         </div>
 
@@ -323,11 +330,10 @@ export function FilesStep({
 
           {/* Área de Drop */}
           <div
-            className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-              isUploading 
-                ? 'border-blue-400 bg-blue-50 cursor-not-allowed' 
+            className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${isUploading
+                ? 'border-blue-400 bg-blue-50 cursor-not-allowed'
                 : 'border-gray-300 hover:border-blue-400 cursor-pointer'
-            }`}
+              }`}
             onClick={() => !isUploading && fileInputRef.current?.click()}
             onDragOver={(e: React.DragEvent) => {
               if (!isUploading) {
@@ -361,7 +367,7 @@ export function FilesStep({
                   Enviando arquivos...
                 </p>
                 <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
-                  <div 
+                  <div
                     className="bg-blue-600 h-2 rounded-full transition-all duration-300"
                     style={{ width: `${uploadProgress}%` }}
                   ></div>

@@ -31,7 +31,7 @@ export function Button({ isBack,onReturn = false, disabled = false, onClick }: B
       <button
         onClick={onClick}
         disabled={disabled}
-        className="px-6 py-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+        className="px-6 py-2 border border-b-gray-400 text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
       >
         <span>Escolher Outro Elemento</span>
       </button>

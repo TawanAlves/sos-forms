@@ -24,66 +24,231 @@ type CoverageOption = {
 };
 
 const coverageOptions: CoverageOption[] = [
+  // {
+  //   value: "cobertura-1",
+  //   label: "Tecido Perfurado Preto Fosco",
+  //   imagePath: "/assets/images/TecidoPerfuradoPretoFosco.png",
+  // },
+  // {
+  //   value: "cobertura-2",
+  //   label: "Tecido Perfurado Preto Brilhante",
+  //   imagePath: "/assets/images/TecidoPerfuradoPretoBrilhante.png",
+  // },
+  // {
+  //   value: "cobertura-3",
+  //   label: "Tecido Perfurado Nude Fosco",
+  //   imagePath: "/assets/images/TecidoPerfuradoNudeFosco.png",
+  // },
+  // {
+  //   value: "cobertura-4",
+  //   label: "Tecido Nude Perfurado Brilhante",
+  //   imagePath: "/assets/images/TecidoNudePerfuradoBrilhante.png",
+  // },
+  // {
+  //   value: "EVA-Perfurado-Vermelho",
+  //   label: "EVA Perfurado Vermelho",
+  //   imagePath: "/assets/images/EVA-Perfurado-Vermelho.jpg",
+  // },
+  // {
+  //   value: "EVA-Perfurado-Verde",
+  //   label: "EVA Perfurado Verde",
+  //   imagePath: "/assets/images/EVA-Perfurado-Verde.jpg",
+  // },
+  // {
+  //   value: "EVA-Perfurado-Laranja",
+  //   label: "EVA Perfurado Laranja",
+  //   imagePath: "/assets/images/EVA-Perfurado-Laranja.jpg",
+  // },
+  // {
+  //   value: "EVA-Perfurado-Azul",
+  //   label: "EVA Perfurado Azul",
+  //   imagePath: "/assets/images/EVA-Perfurado-Azul.jpg",
+  // },
+  // {
+  //   value: "EVA-Perfurado-Preto",
+  //   label: "EVA Perfurado Preto",
+  //   imagePath: "/assets/images/EVA-Perfurado-Preto.jpg",
+  // },
+  // {
+  //   value: "EVA-Perfurado-Cinza",
+  //   label: "EVA Perfurado Cinza",
+  //   imagePath: "/assets/images/EVA-Perfurado-Cinza.jpg",
+  // },
+  // {
+  //   value: "cobertura-1",
+  //   label: "Tecido Perfurado Preto Fosco",
+  //   imagePath: "/assets/images/TecidoPerfuradoPretoFosco.png",
+  // },
+  // {
+  //   value: "cobertura-2",
+  //   label: "Tecido Perfurado Preto Brilhante",
+  //   imagePath: "/assets/images/TecidoPerfuradoPretoBrilhante.png",
+  // },
+  // {
+  //   value: "cobertura-3",
+  //   label: "Tecido Perfurado Nude Fosco",
+  //   imagePath: "/assets/images/TecidoPerfuradoNudeFosco.png",
+  // },
+  // {
+  //   value: "cobertura-4",
+  //   label: "Tecido Nude Perfurado Brilhante",
+  //   imagePath: "/assets/images/TecidoNudePerfuradoBrilhante.png",
+  // },
+  // {
+  //   value: "EVA-Perfurado-Vermelho",
+  //   label: "EVA Perfurado Vermelho",
+  //   imagePath: "/assets/images/EVA-Perfurado-Vermelho.jpg",
+  // },
+  // {
+  //   value: "EVA-Perfurado-Verde",
+  //   label: "EVA Perfurado Verde",
+  //   imagePath: "/assets/images/EVA-Perfurado-Verde.jpg",
+  // },
+  // {
+  //   value: "EVA-Perfurado-Laranja",
+  //   label: "EVA Perfurado Laranja",
+  //   imagePath: "/assets/images/EVA-Perfurado-Laranja.jpg",
+  // },
+  // {
+  //   value: "EVA-Perfurado-Azul",
+  //   label: "EVA Perfurado Azul",
+  //   imagePath: "/assets/images/EVA-Perfurado-Azul.jpg",
+  // },
+  // {
+  //   value: "EVA-Perfurado-Preto",
+  //   label: "EVA Perfurado Preto",
+  //   imagePath: "/assets/images/EVA-Perfurado-Preto.jpg",
+  // },
+  // {
+  //   value: "EVA-Perfurado-Cinza",
+  //   label: "EVA Perfurado Cinza",
+  //   imagePath: "/assets/images/EVA-Perfurado-Cinza.jpg",
+  // },
+  //  {
+  //   value: "EVA-COLOR-AZUL",
+  //   label: "EVA COLOR AZUL",
+  //   imagePath: "/assets/images/EVA-COLOR-AZUL.png",
+  // }, 
+  // {
+  //   value: "EVA-COLOR-LARANJA",
+  //   label: "EVA COLOR LARANJA",
+  //   imagePath: "/assets/images/EVA-COLOR-LARANJA.png",
+  // },
+  // {
+  //   value: "EVA-COLOR-VERDE",
+  //   label: "EVA COLOR VERDE",
+  //   imagePath: "/assets/images/EVA-COLOR-VERDE.png",
+  // },
+  // {
+  //   value: "EVA-COLOR-VERMELHOR",
+  //   label: "EVA COLOR VERMELHOR",
+  //   imagePath: "/assets/images/EVA-COLOR-VERMELHOR.png",
+  // },
+  // {
+  //   value: "EVA-SOFT-ROSA",
+  //   label: "EVA SOFT ROSA",
+  //   imagePath: "/assets/images/EVA-SOFT-ROSA.png",
+  // },
+  // {
+  //   value: "EVA-SOFT-NUDE",
+  //   label: "EVA SOFT NUDE",
+  //   imagePath: "/assets/images/EVA-SOFT-NUDE.png",
+  // },
+  // {
+  //   value: "EVA-SOFT-MOSTARDA",
+  //   label: "EVA SOFT MOSTARDA",
+  //   imagePath: "/assets/images/EVA-SOFT-MOSTARDA.png",
+  // },
+  // {
+  //   value: "EVA-SOFT-VERDE",
+  //   label: "EVA SOFT VERDE",
+  //   imagePath: "/assets/images/EVA-SOFT-VERDE.png",
+  // },
   {
-    value: "cobertura-1",
-    label: "Tecido Perfurado Preto Fosco",
-    imagePath: "/assets/images/TecidoPerfuradoPretoFosco.png",
+    value: "COBERTURA-SINTETICA-BEGE",
+    label: "COBERTURA SINTETICA BEGE",
+    imagePath: "/assets/images/COBERTURA-SINTETICA-BEGE.png",
   },
-  {
-    value: "cobertura-2",
-    label: "Tecido Perfurado Preto Brilhante",
-    imagePath: "/assets/images/TecidoPerfuradoPretoBrilhante.png",
-  },
-  {
-    value: "cobertura-3",
-    label: "Tecido Perfurado Nude Fosco",
-    imagePath: "/assets/images/TecidoPerfuradoNudeFosco.png",
-  },
-  {
-    value: "cobertura-4",
-    label: "Tecido Nude Perfurado Brilhante",
-    imagePath: "/assets/images/TecidoNudePerfuradoBrilhante.png",
-  },
-
-  // Se for tênis:
-  // repete os 4 +
-  // EVA-Perfurado-Vermelho
-  // EVA-Perfurado-Verde
-  // EVA-Perfurado-Laranja
-  // EVA-Perfurado-Azul
-  // EVA-Perfurado-Preto
-  // EVA-Perfurado-Cinza
-
-  {
-    value: "EVA-Perfurado-Vermelho",
-    label: "EVA Perfurado Vermelho",
-    imagePath: "/assets/images/EVA-Perfurado-Vermelho.jpg",
-  },
-  {
-    value: "EVA-Perfurado-Verde",
-    label: "EVA Perfurado Verde",
-    imagePath: "/assets/images/EVA-Perfurado-Verde.jpg",
-  },
-  {
-    value: "EVA-Perfurado-Laranja",
-    label: "EVA Perfurado Laranja",
-    imagePath: "/assets/images/EVA-Perfurado-Laranja.jpg",
-  },
-  {
-    value: "EVA-Perfurado-Azul",
-    label: "EVA Perfurado Azul",
-    imagePath: "/assets/images/EVA-Perfurado-Azul.jpg",
-  },
-  {
-    value: "EVA-Perfurado-Preto",
-    label: "EVA Perfurado Preto",
-    imagePath: "/assets/images/EVA-Perfurado-Preto.jpg",
-  },
-  {
-    value: "EVA-Perfurado-Cinza",
-    label: "EVA Perfurado Cinza",
-    imagePath: "/assets/images/EVA-Perfurado-Cinza.jpg",
-  },
+  // {
+  //   value: "EVA-NL-AZUL",
+  //   label: "EVA NL AZUL",
+  //   imagePath: "/assets/images/EVA-NL-AZUL.png",
+  // },
+  // {
+  //   value: "PLASTAZOTE-AZUL",
+  //   label: "PLASTAZOTE AZUL",
+  //   imagePath: "/assets/images/PLASTAZOTE-AZUL.png",
+  // },
+  //  {
+  //   value: "PLASTAZOTE-PRETO",
+  //   label: "PLASTAZOTE PRETO",
+  //   imagePath: "/assets/images/PLASTAZOTE-PRETO.png",
+  // },
+  //  {
+  //   value: "PLASTAZOTE-BRANCO",
+  //   label: "PLASTAZOTE BRANCO",
+  //   imagePath: "/assets/images/PLASTAZOTE-BRANCO.png",
+  // },
+  //  {
+  //   value: "EVA-VIVA-ARMY",
+  //   label: "EVA VIVA ARMY",
+  //   imagePath: "/assets/images/EVA-VIVA-ARMY.png",
+  // },
+  //  {
+  //   value: "EVA-VIVA-BLACK",
+  //   label: "EVA VIVA BLACK",
+  //   imagePath: "/assets/images/EVA-VIVA-BLACK.png",
+  // },
+  //  {
+  //   value: "EVA-VIVA-BLUE",
+  //   label: "EVA VIVA BLUE",
+  //   imagePath: "/assets/images/EVA-VIVA-BLUE.png",
+  // },
+  //  {
+  //   value: "EVA-VIVA",
+  //   label: "EVA VIVA",
+  //   imagePath: "/assets/images/EVA-VIVA.png",
+  // },
+  //  {
+  //   value: "EVA-MESCLADO-PRETO",
+  //   label: "EVA MESCLADO PRETO",
+  //   imagePath: "/assets/images/EVA-MESCLADO-PRETO.png",
+  // },
+  //  {
+  //   value: "EVA-MESCLADO-AMARELO-E-PRETO",
+  //   label: "EVA MESCLADO AMARELO E PRETO",
+  //   imagePath: "/assets/images/EVA-MESCLADO-AMARELO-E-PRETO.png",
+  // },
+  //  {
+  //   value: "EVA-MESCLADO-AZUL",
+  //   label: "EVA MESCLADO AZUL",
+  //   imagePath: "/assets/images/EVA-MESCLADO-AZUL.png",
+  // },
+  //  {
+  //   value: "EVA-MESCLADO-ROXO",
+  //   label: "EVA MESCLADO ROXO",
+  //   imagePath: "/assets/images/EVA-MESCLADO-ROXO.png",
+  // },
+  //  {
+  //   value: "EVA-MESCLADO-AMARELO-E-LARANJA",
+  //   label: "EVA MESCLADO AMARELO E LARANJA",
+  //   imagePath: "/assets/images/EVA-MESCLADO-AMARELO-E-LARANJA.png",
+  // },
+  //  {
+  //   value: "ESPUMA-COBERTURA-ASTRONAUTA",
+  //   label: "ESPUMA COBERTURA ASTRONAUTA",
+  //   imagePath: "/assets/images/ESPUMA-COBERTURA-ASTRONAUTA.png",
+  // },
+  //  {
+  //   value: "ESPUMA-COBERTURA-SPACE",
+  //   label: "ESPUMA COBERTURA SPACE",
+  //   imagePath: "/assets/images/ESPUMA-COBERTURA-SPACE.png",
+  // },
+  //  {
+  //   value: "ESPUMA-COBERTURA-UNICORNIO",
+  //   label: "ESPUMA COBERTURA UNICORNIO",
+  //   imagePath: "/assets/images/ESPUMA-COBERTURA-UNICORNIO.png",
+  // },
 
   //   SAPATO (3/4)
   //   - altera pergunta da palmilha e imagem 'Mensurar a distância do calcâneo até a cabeça do 1º metatarso (art. metatarso-falangiana)
