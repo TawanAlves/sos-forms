@@ -254,7 +254,7 @@ export function ReviewStep({
         )}
 
         {/* Resumo da Prescrição */}
-        {renderDataSection(
+        {/* {renderDataSection(
           getStepTitle("prescription-summary"),
           <div className="text-sm">
             <span className="font-medium text-gray-700">
@@ -266,7 +266,7 @@ export function ReviewStep({
             </p>
           </div>,
           "prescription-summary"
-        )}
+        )} */}
 
         {/* Modelo de Impressão */}
         {renderDataSection(
