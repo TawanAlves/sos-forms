@@ -188,6 +188,7 @@ export interface PaymentData {
   paymentStatus?: "pending" | "paid" | "failed" | "cancelled";
   pixCode?: string;
   pixQrCode?: string;
+  postalCode?: string;
 }
 
 export interface FinalizeData {
