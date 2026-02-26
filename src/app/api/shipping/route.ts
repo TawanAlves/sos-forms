@@ -1,30 +1,8 @@
 // app/api/shipping/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
-// 1. Gera o token OAuth2
-async function getMelhorEnvioToken() {
-   const res = await fetch("https://www.melhorenvio.com.br/oauth/token", {
-      method: "POST",
-      headers: {
-         "Content-Type": "application/json",
-         "User-Agent": "SOS FORMS claytonfuzetti@podoshop.com.br",
-      },
-      body: JSON.stringify({
-         grant_type: "client_credentials",
-         client_id: process.env.MELHOR_ENVIO_CLIENT_ID,
-         client_secret: process.env.MELHOR_ENVIO_SECRET,
-         scope: "shipping-calculate",
-      }),
-   });
-
-   const data = await res.json();
-   return data.access_token as string;
-}
-
 export async function POST(req: NextRequest) {
    const { postalCodeTo } = await req.json();
-
-   const token = await getMelhorEnvioToken();
 
    const payload = {
       from: { postal_code: process.env.MELHOR_ENVIO_CEP_ORIGEM },
@@ -52,7 +30,8 @@ export async function POST(req: NextRequest) {
          method: "POST",
          headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+            Authorization: `Bearer ${process.env.MELHOR_ENVIO_TOKEN}`,
             "User-Agent": "SOS FORMS claytonfuzetti@podoshop.com.br",
          },
          body: JSON.stringify(payload),
@@ -62,13 +41,13 @@ export async function POST(req: NextRequest) {
    const data = await response.json();
 
    if (!response.ok) {
-      console.error("Melhor Envios erro:", data);
+      console.error("Melhor Envios erro:", JSON.stringify(data));
       return NextResponse.json({ error: data }, { status: 400 });
    }
 
-   const options = data
+   const options = (Array.isArray(data) ? data : [])
       .filter((s: any) => !s.error)
-      .sort((a: any, b: any) => a.custom_price - b.custom_price);
+      .sort((a: any, b: any) => Number(a.custom_price) - Number(b.custom_price));
 
    return NextResponse.json({ options });
-}  
+}
