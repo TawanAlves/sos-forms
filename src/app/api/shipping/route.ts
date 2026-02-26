@@ -1,20 +1,41 @@
 // app/api/shipping/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
+// 1. Gera o token OAuth2
+async function getMelhorEnvioToken() {
+   const res = await fetch("https://www.melhorenvio.com.br/oauth/token", {
+      method: "POST",
+      headers: {
+         "Content-Type": "application/json",
+         "User-Agent": "SOS FORMS claytonfuzetti@podoshop.com.br",
+      },
+      body: JSON.stringify({
+         grant_type: "client_credentials",
+         client_id: process.env.MELHOR_ENVIO_CLIENT_ID,
+         client_secret: process.env.MELHOR_ENVIO_SECRET,
+         scope: "shipping-calculate",
+      }),
+   });
+
+   const data = await res.json();
+   return data.access_token as string;
+}
+
 export async function POST(req: NextRequest) {
-   const body = await req.json();
-   const { postalCodeTo } = body;
+   const { postalCodeTo } = await req.json();
+
+   const token = await getMelhorEnvioToken();
 
    const payload = {
-      from: { postal_code: process.env.MELHOR_ENVIO_CEP_ORIGEM }, // seu CEP de origem
+      from: { postal_code: process.env.MELHOR_ENVIO_CEP_ORIGEM },
       to: { postal_code: postalCodeTo },
       products: [
          {
             id: "palmilha",
-            width: 15,   // cm
-            height: 3,   // cm
-            length: 30,  // cm
-            weight: 0.3, // kg
+            width: 15,
+            height: 5,
+            length: 30,
+            weight: 0.5,
             insurance_value: 150,
             quantity: 1,
          },
@@ -27,13 +48,12 @@ export async function POST(req: NextRequest) {
 
    const response = await fetch(
       "https://www.melhorenvio.com.br/api/v2/me/shipment/calculate",
-      // Sandbox: "https://sandbox.melhorenvio.com.br/api/v2/me/shipment/calculate"
       {
          method: "POST",
          headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.MELHOR_ENVIO_TOKEN}`,
-            "User-Agent": "SeuApp contato@seuapp.com", // obrigatório pela API
+            Authorization: `Bearer ${token}`,
+            "User-Agent": "SOS FORMS claytonfuzetti@podoshop.com.br",
          },
          body: JSON.stringify(payload),
       }
@@ -42,13 +62,13 @@ export async function POST(req: NextRequest) {
    const data = await response.json();
 
    if (!response.ok) {
+      console.error("Melhor Envios erro:", data);
       return NextResponse.json({ error: data }, { status: 400 });
    }
 
-   // Filtra apenas opções disponíveis (sem erro) e ordena pelo preço
    const options = data
       .filter((s: any) => !s.error)
       .sort((a: any, b: any) => a.custom_price - b.custom_price);
 
    return NextResponse.json({ options });
-}
+}  
